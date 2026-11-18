@@ -405,6 +405,10 @@
   padding: 10px;
 }
 
+.detailStack {
+  grid-auto-rows: max-content;
+}
+
 .caseBlock {
   position: relative;
   border-radius: 8px;
