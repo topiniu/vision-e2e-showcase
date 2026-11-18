@@ -82,12 +82,15 @@ flowchart LR
 
 ```bash
 npm run check:privacy  # 已跟踪及待提交文件中的敏感内容与产物门禁
+npm run check:security # 全依赖审计、本地安全分支完整性及漏洞回归
 npm test              # Node test runner + 本地真实 Chromium 夹具
 npm run build:panel
 npm run demo
 ```
 
 CI 在 push / pull request 时执行脱敏扫描、完整测试、演示和面板构建。测试包括超时与挂起模拟、取消、进程隔离、证据校验、反例检出、文件导出、视口及运行看板等场景。当前实测数据见验证记录。
+
+开发/打包依赖的安全修复与本地 picomatch 分支的审计覆盖、兼容边界见 [依赖安全说明](docs/dependency-security.md)。
 
 ## 使用边界
 

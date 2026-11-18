@@ -1,0 +1,24 @@
+{
+  "description": "Blazing fast and accurate glob matcher written in JavaScript, with no dependencies and full support for standard and extended Bash glob features, including braces, extglobs, POSIX brackets, and regular expressions.",
+  "author": "Jon Schlinkert (https://github.com/jonschlinkert)",
+  "license": "MIT",
+  "main": "index.js",
+  "engines": {
+    "node": ">=12"
+  },
+  "sideEffects": false,
+  "name": "@vision-e2e/picomatch",
+  "version": "4.0.7-security.1",
+  "private": true,
+  "upstream": {
+    "name": "picomatch",
+    "version": "4.0.7",
+    "repository": "https://github.com/micromatch/picomatch"
+  },
+  "files": [
+    "index.js",
+    "posix.js",
+    "lib",
+    "LICENSE"
+  ]
+}
