@@ -1,0 +1,1 @@
+# PaddleOCR helpers package marker.

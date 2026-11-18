@@ -1,0 +1,469 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <title>Core actions fixture</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 32px;
+      }
+      .panel {
+        display: grid;
+        gap: 16px;
+        max-width: 520px;
+      }
+      .field {
+        display: grid;
+        gap: 6px;
+      }
+      .dialog {
+        display: none;
+        gap: 14px;
+        margin-top: 20px;
+        padding: 18px;
+        border: 1px solid #d7d7d7;
+      }
+      .dialog[data-open="true"] {
+        display: grid;
+      }
+      .options {
+        display: none;
+        gap: 4px;
+        border: 1px solid #cfcfcf;
+        padding: 6px;
+      }
+      .options[data-open="true"] {
+        display: grid;
+      }
+      .upload-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+      }
+      .upload-card {
+        display: grid;
+        gap: 6px;
+        border: 1px dashed #b8c5b8;
+        padding: 8px;
+      }
+      .upload-card button {
+        position: relative;
+        min-height: 48px;
+      }
+      .upload-card input[type="file"] {
+        display: none;
+      }
+      .responsive-upload-card {
+        display: grid;
+        gap: 6px;
+        border: 1px dashed #bcc8d8;
+        padding: 8px;
+      }
+      .responsive-upload-trigger {
+        min-height: 42px;
+        display: grid;
+        place-items: center;
+        border: 1px solid #d5dbe5;
+      }
+      .responsive-upload-trigger input[type="file"] {
+        display: none;
+      }
+      [role="option"] {
+        cursor: pointer;
+        padding: 6px 8px;
+      }
+      [role="option"]:hover {
+        background: #eef6f0;
+      }
+      .expanded-core {
+        display: none;
+      }
+      body[data-expanded-core="true"] .expanded-core {
+        display: grid;
+      }
+      body[data-expanded-core="true"] button.expanded-core,
+      body[data-expanded-core="true"] input.expanded-core {
+        display: inline-block;
+      }
+      .task-row {
+        display: grid;
+        gap: 4px;
+        border: 1px solid #d9e0ea;
+        padding: 8px;
+      }
+      .zero-size-modal-root {
+        width: 0;
+        height: 0;
+        overflow: visible;
+      }
+      .zero-size-modal-root .ant-modal {
+        width: 360px;
+        padding: 12px;
+        border: 1px solid #d7d7d7;
+        background: #fff;
+      }
+      .nested-modal-demo {
+        display: none;
+        position: relative;
+        min-height: 340px;
+        border: 1px solid #d8dee8;
+        padding: 16px;
+        background: #f7f8fa;
+      }
+      body[data-nested-modal="true"] .nested-modal-demo {
+        display: block;
+      }
+      .demo-main-modal,
+      .material-modal {
+        background: #fff;
+        border: 1px solid #d0d7de;
+        box-shadow: 0 8px 28px rgba(15, 23, 42, 0.12);
+      }
+      .demo-main-modal {
+        display: grid;
+        gap: 12px;
+        width: 620px;
+        min-height: 280px;
+        padding: 18px;
+      }
+      .demo-main-modal[data-open="false"],
+      .material-modal[data-open="false"] {
+        display: none;
+      }
+      .demo-main-modal footer,
+      .material-modal footer {
+        display: flex;
+        justify-content: flex-end;
+        gap: 8px;
+      }
+      .material-modal {
+        display: grid;
+        gap: 12px;
+        position: absolute;
+        left: 180px;
+        top: 54px;
+        width: 360px;
+        padding: 16px;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="panel">
+      <h1>示例任务任务</h1>
+      <button id="create-task" type="button" aria-label="新增" title="新增">
+        <svg width="18" height="18" aria-label="add icon" viewBox="0 0 18 18">
+          <title>add</title>
+          <path d="M8 3h2v6h6v2h-6v6H8v-6H2V9h6z"></path>
+        </svg>
+      </button>
+
+      <div class="zero-size-modal-root" data-testid="ant-modal-zero-root">
+        <div role="dialog" aria-modal="true" class="ant-modal">
+          <div class="ant-modal-content">
+            <strong>创建任务任务</strong>
+            <label>供应链负责人</label>
+            <label>
+              SPU货号
+              <input id="generated-spu" placeholder="请输入SPU货号" value="DEMO2026A00221" />
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="nested-modal-demo" aria-label="选择物料嵌套弹窗复现">
+        <section
+          id="demo-create-task-modal"
+          class="demo-main-modal"
+          role="dialog"
+          aria-label="创建任务任务"
+          data-testid="demo-create-task-modal"
+          data-open="true"
+        >
+          <strong>创建任务任务</strong>
+          <label class="field">
+            SPU货号
+            <input aria-label="SPU货号" value="DEMO20260615001" />
+          </label>
+          <p>关联物料(面辅料 / 印花)</p>
+          <button id="open-material-modal" type="button">选择物料</button>
+          <footer>
+            <button id="demo-main-cancel" type="button">取消</button>
+            <button type="button">创建任务</button>
+          </footer>
+        </section>
+        <section
+          id="material-select-modal"
+          class="material-modal"
+          role="dialog"
+          aria-label="选择物料"
+          data-open="true"
+        >
+          <strong>选择物料</strong>
+          <label class="field">
+            面料
+            <input role="combobox" aria-label="搜索面料(仅启用中)" placeholder="搜索面料(仅启用中)" />
+          </label>
+          <footer>
+            <button id="material-cancel" type="button"><span>取</span><span> 消</span></button>
+            <button type="button">确定</button>
+          </footer>
+        </section>
+      </div>
+
+      <section data-testid="scope-alpha" class="field">
+        <strong>范围 A</strong>
+        <input id="scoped-duplicate-alpha" placeholder="重复输入" />
+        <button id="scoped-action-alpha" type="button">重复按钮</button>
+        <span id="scoped-state-alpha">A 未点击</span>
+      </section>
+      <section data-testid="scope-beta" class="field">
+        <strong>范围 B</strong>
+        <input id="scoped-duplicate-beta" placeholder="重复输入" />
+        <button id="scoped-action-beta" type="button">重复按钮</button>
+        <span id="scoped-state-beta">B 未点击</span>
+      </section>
+
+      <section id="dialog" class="dialog" aria-label="创建任务">
+        <strong>创建任务</strong>
+        <label class="field">
+          任务名称
+          <input id="task-name" type="text" />
+        </label>
+        <p data-testid="outside-scope-text">只在外部出现</p>
+        <div data-testid="task-result-table">
+          <span id="task-name-preview"></span>
+        </div>
+
+        <label class="field">
+          项目成员
+          <input id="supplier" role="combobox" aria-label="项目成员" autocomplete="off" />
+        </label>
+        <div id="supplier-options" class="options" role="listbox">
+          <div role="option" data-value="示例团队测试项目成员">示例团队测试项目成员</div>
+          <div role="option" data-value="杭州测试项目成员">杭州测试项目成员</div>
+        </div>
+        <div id="selected-supplier"></div>
+
+        <label class="field" for="image-upload">上传图片</label>
+        <input id="image-upload" type="file" />
+        <div id="upload-state">未上传</div>
+
+        <div class="upload-grid" aria-label="图片资料">
+          <div class="upload-card">
+            <strong>正面图</strong>
+            <button type="button" aria-label="添加图片">
+              + 添加图片
+              <input id="front-image-upload" type="file" data-upload-category="正面图" />
+            </button>
+            <div id="front-upload-state">正面图未上传</div>
+          </div>
+          <div class="upload-card">
+            <strong>侧面图</strong>
+            <button type="button" aria-label="添加图片">
+              + 添加图片
+              <input id="side-image-upload" type="file" data-upload-category="侧面图" />
+            </button>
+            <div id="side-upload-state">侧面图未上传</div>
+          </div>
+          <div class="upload-card">
+            <strong>版单图</strong>
+            <button type="button" aria-label="添加图片">
+              + 添加图片
+              <input id="pattern-image-upload" type="file" data-upload-category="版单图" />
+            </button>
+            <div id="pattern-upload-state">版单图未上传</div>
+          </div>
+          <div class="upload-card">
+            <strong>尺码表</strong>
+            <button type="button" aria-label="添加图片">
+              + 添加图片
+              <input id="size-image-upload" type="file" data-upload-category="尺码表" />
+            </button>
+            <div id="size-upload-state">尺码表未上传</div>
+          </div>
+          <div class="upload-card">
+            <strong>面料图</strong>
+            <button type="button" aria-label="添加图片">
+              + 添加图片
+              <input id="fabric-image-upload" type="file" data-upload-category="面料图" />
+            </button>
+            <div id="fabric-upload-state">面料图未上传</div>
+          </div>
+          <div class="upload-card">
+            <strong>辅料图</strong>
+            <button type="button" aria-label="添加图片">
+              + 添加图片
+              <input id="trim-image-upload" type="file" data-upload-category="辅料图" />
+            </button>
+            <div id="trim-upload-state">辅料图未上传</div>
+          </div>
+        </div>
+        <div class="upload-grid" aria-label="窄屏图片资料">
+          <div class="responsive-upload-card">
+            <strong>窄屏正面图</strong>
+            <div class="responsive-upload-trigger">
+              添加图片
+              <input id="narrow-front-image-upload" type="file" data-upload-category="窄屏正面图" />
+            </div>
+            <div id="narrow-front-upload-state">窄屏正面图未上传</div>
+          </div>
+          <div class="responsive-upload-card">
+            <strong>窄屏侧面图</strong>
+            <div class="responsive-upload-trigger">
+              添加图片
+              <input id="narrow-side-image-upload" type="file" data-upload-category="窄屏侧面图" />
+            </div>
+            <div id="narrow-side-upload-state">窄屏侧面图未上传</div>
+          </div>
+          <div class="responsive-upload-card">
+            <strong>窄屏版单图</strong>
+            <div class="responsive-upload-trigger">
+              添加图片
+              <input id="narrow-pattern-image-upload" type="file" data-upload-category="窄屏版单图" />
+            </div>
+            <div id="narrow-pattern-upload-state">窄屏版单图未上传</div>
+          </div>
+        </div>
+
+        <label class="field expanded-core">
+          任务优先级
+          <select id="priority-select" aria-label="任务优先级">
+            <option value="">请选择</option>
+            <option value="P0">P0 紧急</option>
+            <option value="P1">P1 常规</option>
+          </select>
+        </label>
+        <div id="priority-state" class="expanded-core">未选择优先级</div>
+        <label class="field expanded-core">
+          <input id="agree-checkbox" type="checkbox" />
+          同意创建规则
+        </label>
+        <div id="agree-state" class="expanded-core">规则未勾选</div>
+        <button id="hover-target" class="expanded-core" type="button">查看提示</button>
+        <div id="hover-tip" class="expanded-core" hidden>悬停提示已显示</div>
+        <input id="shortcut-input" class="expanded-core" aria-label="快捷键输入" />
+        <div class="expanded-core" aria-label="登录表单">
+          <input id="loginName" class="ant-input" type="text" />
+          <input id="password" class="ant-input" type="password" maxlength="8" />
+          <span id="login-state"></span>
+        </div>
+        <button class="count-item expanded-core" type="button">批量项 A</button>
+        <button class="count-item expanded-core" type="button">批量项 B</button>
+        <div class="task-row expanded-core" data-testid="quick-task-row" data-status="8">
+          <strong>快速任务</strong>
+          <span class="task-tag is-active" data-status-code="8">任务跟进</span>
+          <input id="dom-value-input" aria-label="DOM 值输入" value="待验证" />
+          <input id="dom-radio" type="radio" aria-label="DOM 单选" checked />
+          <button id="disabled-submit" type="button" disabled>禁止提交</button>
+        </div>
+        <div class="task-row expanded-core" data-testid="quick-task-row-hidden-status" data-status="8">
+          <strong>自动化测试-快速任务-001</strong>
+          <span class="task-tag">快速任务</span>
+          <span class="task-tag" hidden>任务跟进</span>
+          <span class="task-tag" data-status-code="owner">任务跟进人</span>
+        </div>
+        <button id="network-submit" class="expanded-core" type="button">触发网络断言</button>
+        <div id="network-state" class="expanded-core">未触发网络请求</div>
+      </section>
+    </main>
+
+    <script>
+      const dialog = document.getElementById("dialog");
+      const options = document.getElementById("supplier-options");
+      const supplier = document.getElementById("supplier");
+      const searchParams = new URLSearchParams(location.search);
+      if (searchParams.get("expanded") === "1") {
+        document.body.dataset.expandedCore = "true";
+      }
+      if (searchParams.get("nested") === "1") {
+        document.body.dataset.nestedModal = "true";
+      }
+      document.getElementById("create-task").addEventListener("click", () => {
+        dialog.dataset.open = "true";
+      });
+      supplier.addEventListener("input", () => {
+        options.dataset.open = supplier.value ? "true" : "false";
+      });
+      document.getElementById("task-name").addEventListener("input", (event) => {
+        document.getElementById("task-name-preview").textContent = event.target.value;
+      });
+      document.getElementById("scoped-duplicate-alpha").addEventListener("input", (event) => {
+        document.getElementById("scoped-state-alpha").textContent = `A:${event.target.value}`;
+      });
+      document.getElementById("scoped-duplicate-beta").addEventListener("input", (event) => {
+        document.getElementById("scoped-state-beta").textContent = `B:${event.target.value}`;
+      });
+      document.getElementById("scoped-action-alpha").addEventListener("click", () => {
+        document.getElementById("scoped-state-alpha").textContent = "A 已点击";
+      });
+      document.getElementById("scoped-action-beta").addEventListener("click", () => {
+        document.getElementById("scoped-state-beta").textContent = "B 已点击";
+      });
+      options.addEventListener("click", (event) => {
+        const option = event.target.closest("[role='option']");
+        if (!option) {
+          return;
+        }
+        supplier.value = option.dataset.value || option.textContent.trim();
+        document.getElementById("selected-supplier").textContent = supplier.value;
+        options.dataset.open = "false";
+      });
+      document.getElementById("image-upload").addEventListener("change", () => {
+        document.getElementById("upload-state").textContent = "上传成功";
+      });
+      [
+        ["front-image-upload", "front-upload-state"],
+        ["side-image-upload", "side-upload-state"],
+        ["pattern-image-upload", "pattern-upload-state"],
+        ["size-image-upload", "size-upload-state"],
+        ["fabric-image-upload", "fabric-upload-state"],
+        ["trim-image-upload", "trim-upload-state"],
+        ["narrow-front-image-upload", "narrow-front-upload-state"],
+        ["narrow-side-image-upload", "narrow-side-upload-state"],
+        ["narrow-pattern-image-upload", "narrow-pattern-upload-state"],
+      ].forEach(([inputId, stateId]) => {
+        document.getElementById(inputId).addEventListener("change", (event) => {
+          const category = event.target.dataset.uploadCategory;
+          document.getElementById(stateId).textContent = `${category}已上传`;
+        });
+      });
+      document.getElementById("priority-select").addEventListener("change", (event) => {
+        document.body.dataset.priority = event.target.value;
+        document.getElementById("priority-state").textContent = `已选择${event.target.value}`;
+      });
+      document.getElementById("agree-checkbox").addEventListener("change", (event) => {
+        document.body.dataset.agreed = event.target.checked ? "true" : "false";
+        document.getElementById("agree-state").textContent = event.target.checked ? "规则已勾选" : "规则未勾选";
+      });
+      document.getElementById("hover-target").addEventListener("mouseenter", () => {
+        document.getElementById("hover-tip").hidden = false;
+      });
+      document.getElementById("shortcut-input").addEventListener("keydown", (event) => {
+        if (event.key === "Enter") {
+          document.body.dataset.shortcut = "submitted";
+        }
+      });
+      document.getElementById("loginName").addEventListener("input", (event) => {
+        document.getElementById("login-state").textContent = `账号已填:${event.target.value}`;
+      });
+      document.getElementById("password").addEventListener("input", () => {
+        document.getElementById("login-state").textContent = "密码已填";
+      });
+      document.getElementById("network-submit").addEventListener("click", async () => {
+        const response = await fetch("/api/demo/detail");
+        const payload = await response.json();
+        document.getElementById("network-state").textContent = payload.success ? `网络请求成功 ${payload.data.spuTempNo || ""}` : "网络请求失败";
+      });
+      document.getElementById("open-material-modal").addEventListener("click", () => {
+        document.getElementById("material-select-modal").dataset.open = "true";
+      });
+      document.getElementById("material-cancel").addEventListener("click", () => {
+        document.getElementById("material-select-modal").dataset.open = "false";
+      });
+      document.getElementById("demo-main-cancel").addEventListener("click", () => {
+        document.getElementById("demo-create-task-modal").dataset.open = "false";
+      });
+    </script>
+  </body>
+</html>

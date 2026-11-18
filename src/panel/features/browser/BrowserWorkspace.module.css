@@ -1,0 +1,212 @@
+.toolbar {
+  position: relative;
+  z-index: 5;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 10px;
+  align-items: center;
+  padding: 10px 12px;
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--panel) 92%, var(--panel-muted));
+  box-shadow: var(--shadow-soft);
+}
+
+.navForm {
+  display: grid;
+  grid-template-columns: minmax(128px, 0.26fr) minmax(0, 1fr);
+  gap: 10px;
+  align-items: center;
+  min-width: 0;
+}
+
+.statusCluster,
+.addressCluster,
+.infoDock {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.currentTitle {
+  min-width: 0;
+  overflow: hidden;
+  color: var(--foreground-soft);
+  font-size: 13px;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.addressCluster :global(input) {
+  min-width: 160px;
+  height: 30px;
+  font-size: 13px;
+}
+
+.infoDock {
+  justify-content: flex-end;
+}
+
+.infoPopover {
+  position: relative;
+}
+
+.infoTrigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 30px;
+  padding: 0 10px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--muted-foreground);
+  cursor: default;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.infoPopover:hover .infoTrigger,
+.infoPopover:focus-within .infoTrigger {
+  border-color: var(--border-subtle);
+  background: var(--panel-muted);
+  color: var(--foreground);
+}
+
+.popoverPanel {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  width: min(430px, calc(100vw - 56px));
+  max-height: 360px;
+  overflow: auto;
+  padding: 12px;
+  border: 1px solid var(--border-strong);
+  border-radius: 12px;
+  background: var(--panel);
+  box-shadow: 0 18px 48px rgba(41, 54, 24, 0.16);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-4px);
+  transition:
+    opacity var(--motion-fast),
+    transform var(--motion-fast);
+}
+
+.infoPopover[data-align="right"] .popoverPanel {
+  right: 0;
+  left: auto;
+}
+
+.infoPopover:hover .popoverPanel,
+.infoPopover:focus-within .popoverPanel {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.stateList,
+.templateList {
+  display: grid;
+  gap: 8px;
+}
+
+.stateRow {
+  display: grid;
+  grid-template-columns: 112px minmax(0, 1fr);
+  gap: 12px;
+  align-items: start;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.stateRow:last-child,
+.templateItem:last-child {
+  border-bottom: 0;
+}
+
+.stateRow span {
+  color: var(--muted-foreground);
+  font-size: 12px;
+}
+
+.stateRow strong {
+  min-width: 0;
+  color: var(--foreground);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+  text-align: right;
+}
+
+.templateItem {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 10px;
+  align-items: center;
+  padding: 9px 0;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.templateTitle {
+  color: var(--foreground);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.templateDescription {
+  margin: 2px 0 0;
+  color: var(--muted-foreground);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+@media (max-width: 1100px) {
+  .toolbar,
+  .navForm {
+    grid-template-columns: 1fr;
+  }
+
+  .statusCluster,
+  .infoDock {
+    justify-content: space-between;
+  }
+
+  .addressCluster {
+    flex-wrap: wrap;
+  }
+
+  .addressCluster :global(input) {
+    flex: 1 1 260px;
+  }
+}
+
+@media (max-width: 720px) {
+  .toolbar {
+    padding: 8px;
+  }
+
+  .statusCluster,
+  .addressCluster,
+  .infoDock {
+    flex-wrap: wrap;
+  }
+
+  .currentTitle {
+    flex: 1 1 180px;
+  }
+
+  .infoPopover {
+    position: static;
+  }
+
+  .popoverPanel {
+    right: 8px;
+    left: 8px;
+    width: auto;
+  }
+}

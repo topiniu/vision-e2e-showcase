@@ -1,0 +1,66 @@
+# Dependencies and local environments
+node_modules/
+myenv/
+.venv/
+venv/
+
+# Environment secrets
+.env
+.env.*
+!.env.example
+
+# Build and release artifacts
+dist/
+release/
+.release-assets/
+.zhuzhu-electron/
+
+# Runtime, browser automation, and test artifacts
+output/
+captures/
+.playwright-mcp/
+playwright-report/
+test-results/
+blob-report/
+coverage/
+.nyc_output/
+
+# Local debug artifacts
+*.log
+._*
+/console-final.txt
+/sidebar-debug.json
+/run-snapshot-smoke*.png
+/view-page-case-drawer.png
+
+# Python caches
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# OS metadata
+.DS_Store
+
+# Large local installers
+ocr/Miniconda3-latest-MacOSX-arm64.sh
+
+# v1.5 Z-D/Z-M: workspace-local secrets (evidence signing key, API token)
+.zhuzhu-evidence-key
+.zhuzhu-api-token
+# v1.6 Z-F: workspace credential store (referenced by name from test files)
+.zhuzhu-credentials.json
+
+# Showcase local profiles and optional OCR caches
+.showcase-user-data/
+*.traineddata
+
+# Local agent/tool state and throwaway investigation scratch
+.itagent/
+.tmp-*/
+/tmp/
+# Raw API response dumps captured at runtime
+/uploads/
+# Login tokens must never be committed
+*.tok

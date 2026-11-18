@@ -1,0 +1,1581 @@
+.reportOverlay {
+  background: rgba(16, 24, 40, 0.18);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+
+.reportSheet {
+  --report-paper: var(--background);
+  --report-panel: var(--panel);
+  --report-panel-strong: var(--panel-muted);
+  --report-ink: var(--accent);
+  --report-ink-strong: var(--foreground);
+  --report-ink-soft: var(--muted-foreground);
+  --report-line: var(--border-subtle);
+  --report-tech: var(--accent);
+  --report-success: var(--success);
+  --report-danger: var(--danger);
+  --report-warning: var(--warning);
+  --report-muted: var(--muted-foreground);
+  --report-pending: var(--border-subtle);
+  --report-pending-ink: var(--muted-foreground);
+  top: 24px !important;
+  right: auto !important;
+  bottom: 24px !important;
+  left: 50% !important;
+  display: grid;
+  width: min(960px, calc(100vw - 48px)) !important;
+  max-width: none !important;
+  height: auto !important;
+  max-height: none !important;
+  grid-template-rows: minmax(0, 1fr);
+  gap: 0;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--report-line) 76%, transparent) !important;
+  border-radius: var(--radius-lg);
+  background: var(--report-panel) !important;
+  box-shadow: 0 24px 72px rgba(16, 24, 40, 0.22);
+  color: var(--report-ink-strong);
+  font-family: "Geist Variable", "Segoe UI", sans-serif;
+  transform: translateX(-50%) !important;
+}
+
+.reportSheet[data-state="open"] {
+  animation: reportDialogEnter 190ms cubic-bezier(0.16, 1, 0.3, 1) both !important;
+}
+
+.reportSheet[data-state="closed"] {
+  animation: reportDialogExit 140ms cubic-bezier(0.7, 0, 0.84, 0) both !important;
+}
+
+.reportSheet.reportSheetTitlebarSafe {
+  top: 52px !important;
+}
+
+.reportHeader {
+  display: grid;
+  gap: 18px;
+  border-bottom: 2px solid var(--foreground);
+  padding: 0 0 24px;
+  background: transparent;
+}
+
+.reportMastheadTop {
+  display: flex;
+  min-width: 0;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.reportBrand {
+  display: grid;
+  grid-template-columns: 38px auto;
+  gap: 10px;
+  align-items: center;
+  min-width: 0;
+}
+
+.reportBrandMark {
+  display: grid;
+  width: 38px;
+  height: 38px;
+  place-items: center;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  background: var(--report-ink-strong);
+  box-shadow: none;
+}
+
+.reportBrandMark img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.reportBrand strong,
+.reportBrand span {
+  display: block;
+}
+
+.reportBrand strong {
+  color: var(--foreground);
+  font-size: 12px;
+  font-weight: 820;
+  letter-spacing: 0.035em;
+  text-transform: uppercase;
+}
+
+.reportBrand span {
+  margin-top: 2px;
+  color: var(--report-ink-soft);
+  font-size: 10px;
+  line-height: 1.3;
+}
+
+.reportIdentity {
+  display: grid;
+  min-width: 0;
+  gap: 5px;
+}
+
+.reportEyebrow,
+.reportHeaderActions,
+.chartPanel header div,
+.blockingCallout,
+.emptyChart,
+.failureActions,
+.emptyReportLine,
+.reportLightboxBar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.reportEyebrow {
+  color: var(--accent);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.reportEyebrow svg,
+.reportHeaderActions svg,
+.chartPanel svg,
+.blockingCallout svg,
+.emptyChart svg,
+.emptyReportLine svg,
+.evidenceList svg,
+.failureActions svg,
+.evidenceShot svg {
+  width: 15px;
+  height: 15px;
+}
+
+.reportTitle {
+  min-width: 0;
+  overflow: hidden;
+  color: var(--report-ink-strong);
+  font-size: clamp(20px, 2vw, 29px);
+  font-weight: 820;
+  letter-spacing: 0;
+  line-height: 1.12;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.reportDescription {
+  color: var(--report-ink-soft);
+  font-size: 13px;
+}
+
+.reportHeaderActions {
+  flex-shrink: 0;
+  justify-content: flex-end;
+}
+
+.exportButton svg,
+.spinIcon {
+  width: 14px;
+  height: 14px;
+}
+
+.spinIcon {
+  animation: spin 900ms linear infinite;
+}
+
+.exportStatus {
+  max-width: min(360px, 28vw);
+  overflow: hidden;
+  color: var(--report-ink-soft);
+  font-size: 12px;
+  font-weight: 650;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.exportStatus[data-status="success"] {
+  color: var(--report-success);
+}
+
+.exportStatus[data-status="error"] {
+  color: var(--report-danger);
+}
+
+.statusBadge {
+  height: 28px;
+  gap: 7px;
+  border-radius: var(--radius-md);
+  padding: 0 10px;
+}
+
+.reportShell {
+  display: grid;
+  min-height: 0;
+  grid-template-columns: minmax(0, 1fr);
+  background: var(--report-panel);
+}
+
+.reportKpi span,
+.reportKpi small,
+.chartPanel header span,
+.coverageMeterHead span,
+.coverageMeterHead small,
+.coverageMeterStats small,
+.coverageRankSection header span,
+.matrixHeader,
+.matrixRow span,
+.evidenceList small,
+.failureCard header span,
+.emptyReportLine span,
+.reportLightbox span {
+  color: var(--report-ink-soft);
+  font-size: 12px;
+}
+
+.reportScrollFrame,
+.reportScroll {
+  min-height: 0;
+  height: 100%;
+}
+
+.reportScrollFrame {
+  overflow: hidden;
+  background: var(--report-panel);
+}
+
+.reportDocument {
+  display: grid;
+  width: 100%;
+  gap: 28px;
+  margin: 0;
+  padding: 32px 44px 56px;
+  border: 0;
+  border-radius: 0;
+  background: var(--report-panel);
+  box-shadow: none;
+}
+
+.heroSection {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.9fr) minmax(0, 1.1fr);
+  gap: 18px;
+  min-height: 280px;
+  padding: 22px;
+  border: 1px solid color-mix(in srgb, var(--accent) 16%, var(--report-line));
+  border-radius: var(--radius-lg);
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--accent-soft) 64%, transparent), transparent 44%),
+    var(--report-panel);
+  box-shadow: none;
+  animation: reportSurfaceReveal 300ms cubic-bezier(0.16, 1, 0.3, 1) 45ms both;
+}
+
+.heroSection[data-status="failed"] {
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--danger-soft) 56%, transparent), transparent 44%),
+    var(--report-panel);
+}
+
+.verdictBlock {
+  display: grid;
+  align-content: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.verdictBlock > span {
+  color: var(--accent);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.verdictBlock h2 {
+  margin: 0;
+  color: var(--report-ink-strong);
+  font-size: clamp(30px, 4vw, 54px);
+  font-weight: 820;
+  letter-spacing: 0;
+  line-height: 0.98;
+}
+
+.verdictBlock p {
+  max-width: 620px;
+  margin: 0;
+  color: var(--report-ink-soft);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.blockingCallout {
+  align-items: flex-start;
+  margin-top: 8px;
+  padding: 12px;
+  border: 1px solid color-mix(in srgb, var(--report-danger) 24%, transparent);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--report-danger) 8%, var(--report-panel));
+  color: var(--report-danger);
+}
+
+.blockingCallout div {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+}
+
+.blockingCallout span {
+  color: color-mix(in oklch, var(--report-danger) 72%, var(--report-ink-strong));
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.kpiGrid,
+.chartGrid {
+  display: grid;
+  gap: 12px;
+}
+
+.kpiGrid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.reportKpi {
+  display: grid;
+  align-content: center;
+  gap: 7px;
+  min-height: 118px;
+  padding: 16px;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  background: color-mix(in srgb, var(--panel-muted) 68%, var(--panel));
+}
+
+.reportKpi strong {
+  min-width: 0;
+  overflow: hidden;
+  color: var(--report-ink);
+  font-size: 28px;
+  font-weight: 820;
+  line-height: 1;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.reportKpi strong :where(span, number-flow-react) {
+  color: inherit;
+  font: inherit;
+  line-height: inherit;
+}
+
+.reportDurationValue {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  color: var(--report-ink);
+  font-size: 28px;
+  font-weight: 820;
+  line-height: 1;
+}
+
+.reportDurationValue :where(span, number-flow-react) {
+  color: inherit;
+  font: inherit;
+  line-height: inherit;
+}
+
+.reportKpi small {
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.reportKpi[data-danger="true"] strong,
+.reportKpi[data-danger="true"] small {
+  color: var(--report-danger);
+}
+
+.chartGrid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.chartPanel {
+  display: grid;
+  min-width: 0;
+  gap: 12px;
+  padding: 16px;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  background: var(--report-panel);
+  content-visibility: auto;
+  contain-intrinsic-size: auto 280px;
+  opacity: 0;
+  transform: translateY(7px);
+}
+
+.chartPanel[data-visible="true"] {
+  animation: reportSurfaceReveal 280ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.chartPanel[data-compact="true"] {
+  align-content: start;
+  gap: 10px;
+}
+
+.chartPanel header {
+  display: grid;
+  gap: 4px;
+}
+
+.chartPanel header div {
+  color: var(--accent);
+}
+
+.chartPanel header strong {
+  color: var(--report-ink-strong);
+  font-size: 14px;
+}
+
+.chartCanvas {
+  width: 100%;
+  min-height: 236px;
+}
+
+.chartPanel[data-compact="true"] .chartCanvas {
+  min-height: 0;
+}
+
+.chartPanel[data-visible="false"] .caseStepColumnBar i,
+.chartPanel[data-visible="false"] .stepStackBar span,
+.chartPanel[data-visible="false"] .rankedTrack i {
+  opacity: 0.34;
+  transform: scaleX(0);
+  animation: none;
+}
+
+.chartPanel[data-visible="false"] .caseStepColumnBar i {
+  transform: scaleY(0);
+}
+
+.chartPanel[data-visible="false"] .slowestStepRow {
+  opacity: 0;
+  transform: translateY(6px);
+  animation: none;
+}
+
+.chartPanel[data-visible="true"] .caseStepColumnBar i {
+  animation: reportColumnReveal 420ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: var(--bar-delay, 0ms);
+}
+
+.chartPanel[data-visible="true"] .stepStackBar span,
+.chartPanel[data-visible="true"] .rankedTrack i {
+  animation: reportBarReveal 400ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: var(--bar-delay, 0ms);
+}
+
+.chartPanel[data-visible="true"] .slowestStepRow {
+  animation: reportSurfaceReveal 240ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: var(--row-delay, 0ms);
+}
+
+.caseStepStatusChart {
+  display: grid;
+  align-content: start;
+  gap: 12px;
+  height: 100%;
+  min-height: 236px;
+}
+
+@keyframes reportBarReveal {
+  from {
+    opacity: 0.34;
+    transform: scaleX(0);
+  }
+  to {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+}
+
+@keyframes reportColumnReveal {
+  from {
+    opacity: 0.42;
+    transform: scaleY(0);
+  }
+  to {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+}
+
+@keyframes reportSurfaceReveal {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes reportDialogEnter {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes reportDialogExit {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.statusBadgeLegend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+}
+
+.statusBadgeLegend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--report-ink-soft);
+  font-size: 13px;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.statusBadgeLegend i {
+  width: 10px;
+  height: 10px;
+  flex: 0 0 auto;
+  border-radius: 999px;
+  background: var(--report-muted);
+}
+
+.statusBadgeLegend strong {
+  color: var(--report-ink-strong);
+  font-size: 12px;
+  font-weight: 760;
+  font-variant-numeric: tabular-nums;
+}
+
+.caseStepColumnPlot {
+  display: grid;
+  grid-auto-columns: minmax(54px, 1fr);
+  grid-auto-flow: column;
+  align-items: end;
+  gap: 14px;
+  min-height: 150px;
+  overflow-x: auto;
+  padding: 18px 4px 0;
+  border-bottom: 1px solid color-mix(in srgb, var(--report-line) 90%, transparent);
+  background:
+    linear-gradient(180deg, transparent calc(25% - 1px), color-mix(in srgb, var(--report-line) 64%, transparent) 25%, transparent calc(25% + 1px)),
+    linear-gradient(180deg, transparent calc(50% - 1px), color-mix(in srgb, var(--report-line) 54%, transparent) 50%, transparent calc(50% + 1px)),
+    linear-gradient(180deg, transparent calc(75% - 1px), color-mix(in srgb, var(--report-line) 44%, transparent) 75%, transparent calc(75% + 1px));
+}
+
+.caseStepColumn {
+  display: grid;
+  grid-template-rows: auto minmax(96px, 1fr) auto;
+  justify-items: center;
+  gap: 6px;
+  min-width: 0;
+  height: 100%;
+}
+
+.caseStepColumnValue {
+  color: var(--report-ink-strong);
+  font-size: 12px;
+  font-weight: 760;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.caseStepColumnBar {
+  display: grid;
+  align-self: end;
+  width: clamp(28px, 52%, 44px);
+  min-height: 8px;
+}
+
+.caseStepColumnBar > div {
+  display: flex;
+  flex-direction: column-reverse;
+  align-self: end;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 7px 7px 3px 3px;
+  background: color-mix(in srgb, var(--report-line) 46%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--report-ink) 7%, transparent);
+}
+
+.caseStepColumnBar i {
+  width: 100%;
+  min-height: 0;
+  transform-origin: bottom center;
+}
+
+.caseStepColumn > span {
+  max-width: 100%;
+  overflow: hidden;
+  color: var(--report-ink-soft);
+  font-size: 12px;
+  font-weight: 680;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.caseAliasFootnotes {
+  display: grid;
+  gap: 5px;
+  max-height: 58px;
+  overflow: auto;
+  margin-top: 8px;
+  padding: 8px 10px;
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--accent-soft) 38%, var(--panel-muted));
+}
+
+.caseAliasFootnotes span {
+  display: grid;
+  grid-template-columns: 54px minmax(0, 1fr);
+  gap: 9px;
+  align-items: baseline;
+  min-width: 0;
+  color: var(--report-ink-soft);
+  font-size: 11px;
+  line-height: 1.25;
+}
+
+.caseAliasFootnotes strong {
+  color: var(--report-ink);
+  font-size: 11px;
+  font-weight: 820;
+}
+
+.caseAliasFootnotes em {
+  overflow: hidden;
+  color: var(--report-ink-soft);
+  font-size: 11px;
+  font-style: normal;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.statusChartLayout {
+  display: grid;
+  height: 100%;
+  min-height: 236px;
+  align-content: center;
+  gap: 14px;
+}
+
+.statusTotalLine {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.statusTotalLine strong {
+  color: var(--report-ink);
+  font-size: 42px;
+  line-height: 1;
+}
+
+.statusTotalLine span {
+  color: var(--report-ink-soft);
+  font-size: 12px;
+}
+
+.stepStackBar {
+  height: 22px;
+}
+
+.statusBadgeLegend span[data-status="passed"] i,
+.caseStepColumnBar i[data-status="passed"] {
+  background: var(--report-success);
+}
+
+.statusBadgeLegend span[data-status="failed"] i,
+.caseStepColumnBar i[data-status="failed"] {
+  background: var(--report-danger);
+}
+
+.statusBadgeLegend span[data-status="skipped"] i,
+.caseStepColumnBar i[data-status="skipped"] {
+  background: var(--report-warning);
+}
+
+.statusBadgeLegend span[data-status="pending"] i,
+.caseStepColumnBar i[data-status="pending"] {
+  background: var(--report-pending);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--report-pending-ink) 20%, transparent);
+}
+
+.statusBadgeLegend span[data-status="pending"] {
+  color: var(--report-pending-ink);
+}
+
+.rankedBarList {
+  display: grid;
+  align-content: center;
+  gap: 10px;
+  height: 100%;
+  min-height: 210px;
+}
+
+.chartPanel[data-compact="true"] .rankedBarList {
+  align-content: start;
+  height: auto;
+  min-height: 0;
+}
+
+.rankedBarRow {
+  display: grid;
+  grid-template-columns: minmax(92px, 0.72fr) minmax(120px, 1fr) auto;
+  gap: 10px;
+  align-items: center;
+  min-width: 0;
+}
+
+.rankedLabel {
+  min-width: 0;
+  overflow: hidden;
+  color: var(--report-ink-soft);
+  font-size: 12px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.rankedTrack {
+  height: 10px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--report-line) 50%, transparent);
+}
+
+.rankedTrack i {
+  display: block;
+  height: 100%;
+  min-width: 3px;
+  border-radius: inherit;
+  background: var(--report-ink);
+  transform-origin: left center;
+}
+
+.rankedTrack i[data-danger="true"] {
+  background: var(--report-danger);
+}
+
+.rankedBarRow strong {
+  min-width: 34px;
+  color: var(--report-ink-strong);
+  font-size: 12px;
+  font-weight: 760;
+  text-align: right;
+}
+
+.slowestStepList {
+  display: grid;
+  align-content: start;
+  gap: 8px;
+}
+
+.slowestStepRow {
+  display: grid;
+  grid-template-columns: 24px minmax(94px, 1fr) auto auto;
+  gap: 9px;
+  align-items: center;
+  min-width: 0;
+  padding: 7px 0;
+  border-bottom: 1px solid color-mix(in srgb, var(--report-line) 62%, transparent);
+}
+
+.slowestStepRow:last-child {
+  border-bottom: 0;
+}
+
+.slowestStepRow > span {
+  color: color-mix(in srgb, var(--report-ink-soft) 72%, transparent);
+  font-size: 11px;
+  font-weight: 760;
+  font-variant-numeric: tabular-nums;
+}
+
+.slowestStepRow strong {
+  min-width: 0;
+  overflow: hidden;
+  color: var(--report-ink-strong);
+  font-size: 12px;
+  font-weight: 700;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.slowestStepRow small {
+  color: var(--report-ink-soft);
+  font-size: 11px;
+  font-weight: 720;
+  white-space: nowrap;
+}
+
+.slowestStepRow em {
+  color: var(--report-ink);
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 780;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.emptyChart {
+  justify-content: center;
+  height: 100%;
+  min-height: 210px;
+  border: 1px dashed var(--report-line);
+  border-radius: 8px;
+  color: var(--report-ink-soft);
+  font-size: 12px;
+}
+
+.reportSection {
+  scroll-margin-top: 16px;
+  display: grid;
+  gap: 14px;
+  content-visibility: auto;
+  contain-intrinsic-size: auto 320px;
+}
+
+.reportSection[data-visible="false"] {
+  opacity: 0;
+  transform: translateY(7px);
+}
+
+.reportSection[data-visible="true"] {
+  animation: reportSurfaceReveal 280ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.reportSection > header {
+  display: grid;
+  max-width: 760px;
+  gap: 3px;
+}
+
+.reportSection h3 {
+  margin: 0;
+  color: var(--report-ink-strong);
+  font-size: 20px;
+  font-weight: 780;
+  letter-spacing: 0;
+}
+
+.reportSection p {
+  margin: 0;
+  color: var(--report-ink-soft);
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.coveragePanel {
+  display: grid;
+  border: 1px solid var(--report-line);
+  border-radius: 8px;
+  gap: 0;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--report-panel) 88%, transparent);
+}
+
+.reportSection[data-visible="false"] .coveragePanel {
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+.reportSection[data-visible="true"] .coveragePanel {
+  animation: reportSurfaceReveal 240ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.coverageOverview {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.coverageMeter {
+  display: grid;
+  min-width: 0;
+  gap: 12px;
+  padding: 18px 20px 16px;
+  border-bottom: 1px solid var(--report-line);
+}
+
+.coverageMeter + .coverageMeter {
+  border-left: 1px solid var(--report-line);
+}
+
+.coverageMeter[data-strong="true"] {
+  background: linear-gradient(90deg, color-mix(in srgb, var(--report-success) 5%, transparent), transparent 62%);
+}
+
+.coverageMeterHead {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.coverageMeterHead div {
+  display: grid;
+  gap: 2px;
+}
+
+.coverageMeterHead span {
+  color: var(--report-ink-soft);
+  font-size: 13px;
+  font-weight: 720;
+}
+
+.coverageMeterHead small {
+  color: var(--report-ink-soft);
+  font-size: 11px;
+}
+
+.coverageMeterHead strong {
+  color: var(--report-ink);
+  font-size: 34px;
+  font-weight: 780;
+  line-height: 1;
+}
+
+.coverageMeterBar,
+.stepStackBar {
+  display: flex;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--report-line) 46%, transparent);
+}
+
+.coverageMeterBar {
+  height: 9px;
+}
+
+.coverageMeterBar i,
+.stepStackBar span {
+  min-width: 0;
+  height: 100%;
+  transform-origin: left center;
+}
+
+.reportSection[data-visible="false"] .coverageMeterBar i,
+.reportSection[data-visible="false"] .coverageRankTrack i {
+  opacity: 0.34;
+  transform: scaleX(0);
+  animation: none;
+}
+
+.reportSection[data-visible="true"] .coverageMeterBar i,
+.reportSection[data-visible="true"] .coverageRankTrack i {
+  animation: reportBarReveal 400ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: var(--bar-delay, 0ms);
+}
+
+.coverageMeterBar i[data-status="passed"],
+.stepStackBar span[data-status="passed"] {
+  background: var(--report-success);
+}
+
+.coverageMeterBar i[data-status="failed"],
+.stepStackBar span[data-status="failed"] {
+  background: var(--report-danger);
+}
+
+.coverageMeterBar i[data-status="skipped"],
+.stepStackBar span[data-status="skipped"] {
+  background: var(--report-warning);
+}
+
+.coverageMeterBar i[data-status="pending"],
+.stepStackBar span[data-status="pending"] {
+  background: var(--report-pending);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--report-pending-ink) 20%, transparent);
+}
+
+.coverageMeterStats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px 14px;
+}
+
+.coverageMeterStats small {
+  color: var(--report-ink-soft);
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.coverageMeterStats small[data-status="passed"] {
+  color: var(--report-success);
+  font-weight: 720;
+}
+
+.coverageMeterStats small[data-status="failed"] {
+  color: var(--report-danger);
+  font-weight: 720;
+}
+
+.coverageBreakdown {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(320px, 0.75fr);
+  min-height: 260px;
+}
+
+.coverageRankSection {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  min-width: 0;
+  gap: 14px;
+  padding: 18px 20px 20px;
+}
+
+.coverageRankSection + .coverageRankSection {
+  border-left: 1px solid var(--report-line);
+}
+
+.coverageRankSection[data-danger="true"] {
+  background: color-mix(in srgb, var(--report-danger) 4%, transparent);
+}
+
+.coverageRankSection header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.coverageRankSection header div {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--report-ink);
+}
+
+.coverageRankSection svg {
+  width: 15px;
+  height: 15px;
+}
+
+.coverageRankSection strong {
+  color: var(--report-ink-strong);
+  font-size: 14px;
+}
+
+.coverageRankSection header span {
+  color: var(--report-ink-soft);
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.coverageRankList {
+  display: grid;
+  align-content: start;
+  gap: 12px;
+  min-width: 0;
+}
+
+.coverageRankRow {
+  display: grid;
+  grid-template-columns: 24px minmax(128px, 0.58fr) minmax(140px, 1fr) 42px;
+  gap: 12px;
+  align-items: center;
+  min-width: 0;
+}
+
+.reportSection[data-visible="false"] .coverageRankRow {
+  opacity: 0;
+  transform: translateY(6px);
+  animation: none;
+}
+
+.reportSection[data-visible="true"] .coverageRankRow {
+  animation: reportSurfaceReveal 240ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: var(--row-delay, 0ms);
+}
+
+.coverageRankIndex {
+  color: color-mix(in srgb, var(--report-ink-soft) 70%, transparent);
+  font-size: 11px;
+  font-weight: 760;
+  font-variant-numeric: tabular-nums;
+}
+
+.coverageRankName {
+  min-width: 0;
+  overflow: hidden;
+  color: var(--report-ink-soft);
+  font-size: 13px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.coverageRankTrack {
+  height: 11px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--report-line) 54%, transparent);
+}
+
+.coverageRankTrack i {
+  display: block;
+  height: 100%;
+  min-width: 3px;
+  border-radius: inherit;
+  background: var(--report-ink);
+  transform-origin: left center;
+}
+
+.coverageRankTrack i[data-danger="true"] {
+  background: var(--report-danger);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reportSheet[data-state="open"],
+  .reportSheet[data-state="closed"],
+  .heroSection,
+  .reportKpi,
+  .chartPanel,
+  .reportSection,
+  .slowestStepRow,
+  .rankedTrack i,
+  .caseStepColumnBar i,
+  .coverageRankTrack i,
+  .coverageMeterBar i,
+  .stepStackBar span {
+    animation: none !important;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.coverageRankRow > strong {
+  color: var(--report-ink-strong);
+  font-size: 15px;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+.coverageEmpty {
+  display: grid;
+  min-height: 128px;
+  align-items: center;
+  border: 1px dashed color-mix(in srgb, var(--report-line) 80%, transparent);
+  border-radius: 8px;
+  color: var(--report-ink-soft);
+  font-size: 13px;
+  text-align: center;
+}
+
+.failureStack {
+  display: grid;
+  gap: 12px;
+}
+
+.failureCard {
+  display: grid;
+  gap: 9px;
+  padding: 12px 14px;
+  border: 1px solid color-mix(in srgb, var(--report-danger) 24%, var(--report-line));
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--report-danger) 5%, var(--report-panel));
+}
+
+.failureCard header {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 10px;
+  align-items: center;
+}
+
+.failureCard header strong,
+.failureCard h4,
+.evidenceList strong,
+.emptyReportLine strong {
+  min-width: 0;
+  overflow: hidden;
+  color: var(--report-ink-strong);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.failureCard h4 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 760;
+}
+
+.failureCard p {
+  margin: 0;
+  color: color-mix(in oklch, var(--report-danger) 72%, var(--report-ink-strong));
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.failureSummary {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: start;
+}
+
+.failureSummary > div:first-child {
+  display: grid;
+  min-width: 0;
+  gap: 5px;
+}
+
+.failureActions {
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.shotSummary {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  padding-top: 2px;
+}
+
+.shotSummary span {
+  border: 1px solid color-mix(in srgb, var(--report-danger) 18%, var(--report-line));
+  border-radius: 999px;
+  padding: 2px 8px;
+  color: var(--report-ink);
+  font-size: 11px;
+  font-weight: 720;
+}
+
+.shotSummary small {
+  color: var(--report-ink-soft);
+  font-size: 11px;
+}
+
+.shotGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.evidenceShot {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+  padding: 10px;
+  border: 1px solid var(--report-line);
+  border-radius: 8px;
+  background: var(--report-panel);
+  color: inherit;
+  text-align: left;
+}
+
+.evidenceShot:disabled {
+  cursor: default;
+}
+
+.evidenceShot span {
+  color: var(--report-ink);
+  font-size: 12px;
+  font-weight: 720;
+}
+
+.evidenceShot img,
+.evidenceShot small {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: 6px;
+  background: var(--report-panel-strong);
+}
+
+.evidenceShot img {
+  object-fit: cover;
+}
+
+.evidenceShot small {
+  gap: 6px;
+  color: var(--report-ink-soft);
+}
+
+.stepDetailWrap {
+  overflow: hidden;
+  border: 1px solid var(--report-line);
+  border-radius: 8px;
+  background: var(--report-panel);
+}
+
+.matrixTable {
+  display: grid;
+  overflow: hidden;
+  border: 1px solid var(--report-line);
+  border-radius: 8px;
+  background: var(--report-panel);
+}
+
+.matrixHeader,
+.matrixRow {
+  display: grid;
+  grid-template-columns: 112px minmax(220px, 1.4fr) 86px 86px 106px minmax(180px, 1fr);
+  gap: 12px;
+  align-items: center;
+  padding: 10px 12px;
+}
+
+.matrixHeader {
+  border-bottom: 1px solid var(--report-line);
+  background: var(--report-panel-strong);
+  font-weight: 760;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.matrixRow {
+  border-bottom: 1px solid color-mix(in srgb, var(--report-line) 62%, transparent);
+  font-size: 12px;
+}
+
+.matrixRow:last-child {
+  border-bottom: 0;
+}
+
+.matrixRow strong,
+.matrixRow span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.evidenceList {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.evidenceList button {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 10px;
+  align-items: center;
+  min-width: 0;
+  padding: 12px;
+  border: 1px solid var(--report-line);
+  border-radius: 8px;
+  background: var(--report-panel);
+  color: var(--report-ink);
+  text-align: left;
+}
+
+.evidenceList button:hover,
+.evidenceList button:focus-visible,
+.evidenceShot:not(:disabled):hover,
+.evidenceShot:not(:disabled):focus-visible {
+  border-color: color-mix(in srgb, var(--report-ink) 32%, var(--report-line));
+  outline: none;
+}
+
+.evidenceList span {
+  display: grid;
+  min-width: 0;
+  gap: 3px;
+}
+
+.evidenceList small {
+  overflow: hidden;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.evidenceToggle {
+  justify-self: start;
+}
+
+.rawDetails {
+  overflow: hidden;
+  border: 1px solid var(--report-line);
+  border-radius: 8px;
+  background: var(--report-panel);
+}
+
+.rawDetails summary {
+  cursor: pointer;
+  padding: 12px 14px;
+  color: var(--report-ink);
+  font-size: 13px;
+  font-weight: 760;
+}
+
+.rawDetails pre {
+  max-height: 420px;
+  margin: 0;
+  overflow: auto;
+  border-top: 1px solid var(--report-line);
+  padding: 14px;
+  color: #25322b;
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.emptyReportLine {
+  padding: 14px;
+  border: 1px dashed var(--report-line);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--report-panel) 72%, transparent);
+}
+
+.emptyReportLine div {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+
+.reportLightbox {
+  position: fixed;
+  inset: 36px;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  overflow: hidden;
+  border: 1px solid var(--report-line);
+  border-radius: 10px;
+  background: #111610;
+  color: var(--report-paper);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.42);
+}
+
+.reportLightboxBar {
+  justify-content: space-between;
+  padding: 10px 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.reportLightboxCanvas {
+  display: grid;
+  min-height: 0;
+  place-items: center;
+  overflow: auto;
+  border: 0;
+  background: transparent;
+}
+
+.reportLightboxCanvas img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.reportLightbox > span {
+  overflow: hidden;
+  padding: 8px 12px;
+  color: color-mix(in srgb, var(--report-paper) 76%, transparent);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media (max-width: 1040px) {
+  .reportSheet {
+    top: 12px !important;
+    right: auto !important;
+    bottom: 12px !important;
+    left: 50% !important;
+    width: calc(100vw - 24px) !important;
+  }
+
+  .heroSection,
+  .chartGrid,
+  .coverageOverview,
+  .coverageBreakdown,
+  .evidenceList {
+    grid-template-columns: 1fr;
+  }
+
+  .coverageMeter + .coverageMeter,
+  .coverageRankSection + .coverageRankSection {
+    border-left: 0;
+  }
+
+  .coverageRankSection + .coverageRankSection {
+    border-top: 1px solid var(--report-line);
+  }
+
+  .matrixTable {
+    overflow-x: auto;
+  }
+
+  .matrixHeader,
+  .matrixRow {
+    min-width: 760px;
+  }
+}
+
+@media (max-width: 720px) {
+  .failureCard header {
+    grid-template-columns: 1fr;
+  }
+
+  .reportMastheadTop {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .reportHeaderActions {
+    justify-content: flex-start;
+  }
+
+  .reportBrand {
+    min-width: 0;
+  }
+
+  .reportTitle {
+    white-space: normal;
+  }
+
+  .reportDocument {
+    padding: 24px 20px 36px;
+  }
+
+  .kpiGrid,
+  .shotGrid,
+  .failureSummary,
+  .coverageRankRow {
+    grid-template-columns: 1fr;
+  }
+
+  .coverageRankIndex,
+  .coverageRankRow > strong {
+    text-align: left;
+  }
+}

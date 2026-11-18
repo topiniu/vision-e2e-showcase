@@ -1,0 +1,492 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <title>Ant select fixture</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 32px;
+      }
+      .dialog {
+        display: grid;
+        gap: 14px;
+        width: 760px;
+      }
+      .field {
+        position: relative;
+        display: grid;
+        gap: 6px;
+        width: 260px;
+      }
+      .ant-select {
+        position: relative;
+        min-height: 32px;
+      }
+      .ant-cascader-picker {
+        position: relative;
+        min-height: 32px;
+      }
+      .ant-select-selector {
+        position: relative;
+        min-height: 32px;
+        border: 1px solid #d7d7d7;
+        border-radius: 4px;
+        background: #fff;
+      }
+      .ant-select-selection-placeholder {
+        position: absolute;
+        left: 10px;
+        top: 7px;
+        color: #9a9a9a;
+        pointer-events: none;
+      }
+      .ant-cascader-picker-label {
+        position: absolute;
+        left: 10px;
+        top: 7px;
+        color: #9a9a9a;
+        pointer-events: none;
+      }
+      .ant-select-selection-search {
+        position: absolute;
+        inset: 0;
+      }
+      .ant-select-selection-search-input {
+        box-sizing: border-box;
+        width: 100%;
+        height: 30px;
+        border: 0;
+        outline: none;
+        padding: 4px 10px;
+        background: transparent;
+      }
+      .imageCategoryStaticTitle___16Qo6 {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        width: 140px;
+        height: 24px;
+        background: rgba(255, 255, 255, 0.01);
+        z-index: 5;
+      }
+      .ant-select-dropdown {
+        display: none;
+        width: 260px;
+        border: 1px solid #d7d7d7;
+        background: #fff;
+      }
+      .ant-select-dropdown[data-open="true"] {
+        display: block;
+      }
+      .ant-select-item-option {
+        cursor: pointer;
+        padding: 8px 12px;
+      }
+      .ant-upload-list-picture-card {
+        margin-left: 360px;
+        width: 240px;
+        height: 160px;
+        border: 1px dashed #bbb;
+      }
+      .ant-cascader-dropdown {
+        display: none;
+        gap: 0;
+        width: max-content;
+        border: 1px solid #d7d7d7;
+        background: #fff;
+      }
+      .ant-cascader-dropdown[data-open="true"] {
+        display: flex;
+      }
+      .ant-cascader-menu {
+        display: none;
+        min-width: 140px;
+        list-style: none;
+        margin: 0;
+        padding: 4px 0;
+        border-right: 1px solid #eee;
+      }
+      .ant-cascader-menu[data-open="true"] {
+        display: block;
+      }
+      .ant-cascader-menu-item {
+        cursor: pointer;
+        padding: 8px 28px 8px 12px;
+        white-space: nowrap;
+      }
+      .ant-cascader-menu-item-active {
+        background: #e8f6ff;
+      }
+    </style>
+  </head>
+  <body>
+    <main id="root-master">
+      <section class="dialog" aria-label="创建任务任务">
+        <h1>创建任务任务</h1>
+        <label class="field">
+          <span>* 负责人</span>
+          <span id="owner-external-selection-before" class="business-selected-value" style="display: none"></span>
+          <div class="ant-select">
+            <div class="ant-select-selector">
+              <span id="owner-selection" class="ant-select-selection-item" style="display: none"></span>
+              <span id="owner-legacy-selection" class="ant-select-selection-selected-value" style="display: none"></span>
+              <span id="owner-custom-selection" style="display: none"></span>
+              <span class="ant-select-selection-placeholder">请输入负责人姓名搜索</span>
+              <span class="ant-select-selection-search">
+                <input
+                  id="owner"
+                  class="ant-select-selection-search-input"
+                  role="combobox"
+                  aria-label="负责人"
+                  autocomplete="off"
+                />
+              </span>
+            </div>
+          </div>
+          <span id="owner-external-selection" class="business-selected-value" style="display: none"></span>
+          <div class="imageCategoryStaticTitle___16Qo6">尺码表</div>
+        </label>
+        <label class="field">
+          <span>* 类目</span>
+          <div class="ant-cascader-picker">
+            <div class="ant-select-selector">
+              <span class="ant-cascader-picker-label">请选择类目</span>
+              <span class="ant-select-selection-search">
+                <input
+                  id="category"
+                  class="ant-select-selection-search-input"
+                  role="combobox"
+                  aria-label="类目"
+                  autocomplete="off"
+                  readonly
+                />
+              </span>
+            </div>
+          </div>
+        </label>
+        <label class="field">
+          <span>运营</span>
+          <div class="ant-select" id="operator-select">
+            <div class="ant-select-selector">
+              <span id="operator-selection" class="ant-select-selection-item" style="display: none"></span>
+              <span class="ant-select-selection-placeholder" id="operator-placeholder">请选择或搜索运营</span>
+              <span class="ant-select-selection-search">
+                <input
+                  id="operator"
+                  class="ant-select-selection-search-input"
+                  role="combobox"
+                  aria-label="运营"
+                  autocomplete="off"
+                />
+              </span>
+            </div>
+          </div>
+        </label>
+        <label class="field">
+          <span>项目成员</span>
+          <div class="ant-select" data-testid="demo-supply-chain-supplier-select" id="supplier-select">
+            <div class="ant-select-selector">
+              <span id="supplier-selection" class="ant-select-selection-item" style="display: none"></span>
+              <span class="ant-select-selection-placeholder" id="supplier-placeholder">请选择项目成员</span>
+              <span class="ant-select-selection-search">
+                <input
+                  id="supplierSelect"
+                  class="ant-select-selection-search-input"
+                  role="combobox"
+                  aria-label="项目成员"
+                  aria-controls="supplierSelect_list"
+                  autocomplete="off"
+                />
+              </span>
+            </div>
+          </div>
+        </label>
+        <div id="category-dropdown" class="ant-cascader-dropdown" data-open="false">
+          <ul class="ant-cascader-menu" data-open="true" data-level="0">
+            <li class="ant-cascader-menu-item" title="女士服装" data-level="0" data-value="女士服装">女士服装</li>
+            <li class="ant-cascader-menu-item" title="宠物用品" data-level="0" data-value="宠物用品">宠物用品</li>
+          </ul>
+          <ul class="ant-cascader-menu" data-open="false" data-level="1">
+            <li class="ant-cascader-menu-item" title="宠物用品" data-level="1" data-value="宠物用品">宠物用品</li>
+            <li class="ant-cascader-menu-item" title="婚礼及活动" data-level="1" data-value="婚礼及活动">婚礼及活动</li>
+            <li class="ant-cascader-menu-item" title="外套夹克" data-level="1" data-value="外套夹克">外套夹克</li>
+          </ul>
+          <ul class="ant-cascader-menu" data-open="false" data-level="2">
+            <li class="ant-cascader-menu-item" title="猫用品" data-level="2" data-value="猫用品">猫用品</li>
+            <li class="ant-cascader-menu-item" title="花童 礼服" data-level="2" data-value="花童 礼服">花童 礼服</li>
+            <li class="ant-cascader-menu-item" title="女士 婚纱" data-level="2" data-value="女士 婚纱">女士 婚纱</li>
+          </ul>
+        </div>
+        <div id="owner-dropdown" class="ant-select-dropdown" data-open="false">
+          <div class="rc-virtual-list-holder">
+            <div id="owner-option" class="ant-select-item ant-select-item-option" title="促佳贸易">
+              <div class="ant-select-item-option-content">促佳贸易</div>
+            </div>
+          </div>
+        </div>
+        <div id="operator-dropdown" class="ant-select-dropdown" data-open="false">
+          <div class="rc-virtual-list-holder">
+            <div class="ant-select-item ant-select-item-option" title="促佳贸易">
+              <div class="ant-select-item-option-content">促佳贸易</div>
+            </div>
+          </div>
+        </div>
+        <div id="supplier-dropdown" class="ant-select-dropdown ant-select-dropdown-empty ant-select-dropdown-placement-bottomLeft" data-open="false">
+          <div>
+            <div role="listbox" id="supplierSelect_list" style="height: 0px; width: 0px; overflow: hidden;">
+              <div role="option" id="supplierSelect_list_0" aria-selected="false">1968974129436827648</div>
+            </div>
+            <div class="rc-virtual-list" style="position: relative;">
+              <div class="rc-virtual-list-holder" style="max-height: 256px; overflow-y: hidden; overflow-anchor: none;">
+                <div style="height: 102px; position: relative; overflow: hidden;">
+                  <div class="rc-virtual-list-holder-inner" style="display: flex; flex-direction: column; transform: translateY(0px); margin-left: 0px; position: absolute; left: 0px; right: 0px; top: 0px;">
+                    <div label="daman001 / SH000291" aria-selected="false" class="ant-select-item ant-select-item-option ant-select-item-option-active">
+                      <div class="ant-select-item-option-content">
+                        <div class="supplierOption___3LEHQ">
+                          <div class="supplierOptionTitle___29CFp">
+                            <span><span class="supplierOptionHighlight___2mG3b">daman001</span> / SH000291</span>
+                          </div>
+                          <div class="supplierOptionMeta___2XF_s">
+                            <span>店铺名：GGBond Store</span>
+                            <span>账户经理：Andy Zhou</span>
+                            <span>公司名称/姓名：<span class="supplierOptionHighlight___2mG3b">daman001</span></span>
+                          </div>
+                        </div>
+                      </div>
+                      <span class="ant-select-item-option-state" unselectable="on" aria-hidden="true" style="user-select: none;"></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="ant-upload-list ant-upload-list-picture-card">上传区域</div>
+        <div id="selected-owner"></div>
+        <div id="selected-operator"></div>
+        <div id="selected-supplier"></div>
+      </section>
+    </main>
+    <script>
+      const owner = document.getElementById("owner");
+      const dropdown = document.getElementById("owner-dropdown");
+      const placeholder = document.querySelector(".ant-select-selection-placeholder");
+      const ownerSelection = document.getElementById("owner-selection");
+      const ownerLegacySelection = document.getElementById("owner-legacy-selection");
+      const ownerCustomSelection = document.getElementById("owner-custom-selection");
+      const operator = document.getElementById("operator");
+      const operatorDropdown = document.getElementById("operator-dropdown");
+      const operatorPlaceholder = document.getElementById("operator-placeholder");
+      const operatorSelection = document.getElementById("operator-selection");
+      const supplier = document.getElementById("supplierSelect");
+      const supplierDropdown = document.getElementById("supplier-dropdown");
+      const supplierPlaceholder = document.getElementById("supplier-placeholder");
+      const supplierSelection = document.getElementById("supplier-selection");
+      const category = document.getElementById("category");
+      const categoryDropdown = document.getElementById("category-dropdown");
+      const categoryPlaceholder = document.querySelector(".ant-cascader-picker-label");
+      const params = new URLSearchParams(location.search);
+      const hoverOnlyCascader = params.get("cascader") === "hover";
+      const brokenOperator = params.get("brokenOperator") === "1";
+      const misleadingOperatorInput = params.get("misleadingOperatorInput") === "1";
+      const hiddenOperatorSelected = params.get("hiddenOperatorSelected") === "1";
+      const legacySelectedValue = params.get("legacySelectedValue") === "1";
+      const customSelectedText = params.get("customSelectedText") === "1";
+      const externalSelectedText = params.get("externalSelectedText") === "1";
+      const externalTextNodeSelected = params.get("externalTextNodeSelected") === "1";
+      const replaceOwnerRootOnSelect = params.get("replaceOwnerRootOnSelect") === "1";
+      const replaceOperatorRootAfterMarker = params.get("replaceOperatorRootAfterMarker") === "1";
+      const supplierValueOnlySelected = params.get("supplierValueOnlySelected") === "1";
+      const selectionDelay = Number(params.get("selectionDelay") || 0);
+      const ownerField = owner.closest(".field");
+      let ownerExternalTextNode = null;
+      let searchTimer = null;
+      if (replaceOperatorRootAfterMarker) {
+        const operatorRoot = operator.closest(".ant-select");
+        const observer = new MutationObserver(() => {
+          if (!operatorRoot.getAttribute("data-e2e-combo-root-id")) {
+            return;
+          }
+          observer.disconnect();
+          const replacement = operatorRoot.cloneNode(true);
+          replacement.removeAttribute("data-e2e-combo-root-id");
+          operatorRoot.replaceWith(replacement);
+        });
+        observer.observe(operatorRoot, { attributes: true, attributeFilter: ["data-e2e-combo-root-id"] });
+      }
+      owner.addEventListener("input", () => {
+        placeholder.style.display = owner.value ? "none" : "block";
+        clearTimeout(searchTimer);
+        dropdown.dataset.open = "false";
+        const delay = Number(params.get("delay") || 0);
+        searchTimer = setTimeout(() => {
+          dropdown.dataset.open = owner.value ? "true" : "false";
+          if (owner.value) {
+            owner.setAttribute("aria-activedescendant", "owner-option");
+          } else {
+            owner.removeAttribute("aria-activedescendant");
+          }
+        }, delay);
+      });
+      dropdown.addEventListener("click", (event) => {
+        const option = event.target.closest(".ant-select-item-option");
+        if (!option) {
+          return;
+        }
+        const nextValue = option.textContent.trim();
+        owner.value = nextValue;
+        const applySelection = () => {
+          if (replaceOwnerRootOnSelect) {
+            const currentRoot = owner.closest(".ant-select");
+            const marker = currentRoot?.getAttribute("data-e2e-combo-root-id");
+            const replacement = document.createElement("div");
+            replacement.className = "ant-select";
+            if (marker) {
+              replacement.setAttribute("data-e2e-combo-root-id", marker);
+            }
+            replacement.innerHTML = `
+              <div class="ant-select-selector">
+                <span class="ant-select-selection-search">
+                  <input
+                    id="owner-replaced"
+                    class="ant-select-selection-search-input"
+                    role="combobox"
+                    aria-label="负责人"
+                    autocomplete="off"
+                    value=""
+                  />
+                </span>
+                <span class="ant-select-selection-item" title="${nextValue}">${nextValue}</span>
+              </div>
+            `;
+            currentRoot?.replaceWith(replacement);
+            document.getElementById("selected-owner").textContent = nextValue;
+            return;
+          }
+          const selectedNode = externalSelectedText
+            ? document.getElementById("owner-external-selection")
+            : customSelectedText
+              ? ownerCustomSelection
+              : legacySelectedValue
+                ? ownerLegacySelection
+                : ownerSelection;
+          if (externalTextNodeSelected) {
+            ownerExternalTextNode?.remove();
+            ownerExternalTextNode = document.createTextNode(nextValue);
+            ownerField.insertBefore(ownerExternalTextNode, document.querySelector(".ant-select"));
+          } else {
+            selectedNode.textContent = nextValue;
+            selectedNode.style.display = "inline";
+          }
+          if (externalSelectedText) {
+            const beforeNode = document.getElementById("owner-external-selection-before");
+            beforeNode.textContent = nextValue;
+            beforeNode.style.display = "inline";
+          }
+          placeholder.style.display = "none";
+          document.getElementById("selected-owner").textContent = nextValue;
+        };
+        if (selectionDelay > 0) {
+          setTimeout(applySelection, selectionDelay);
+        } else {
+          applySelection();
+        }
+        dropdown.dataset.open = "false";
+      });
+      operator.addEventListener("input", () => {
+        operatorPlaceholder.style.display = operator.value ? "none" : "block";
+        operatorDropdown.dataset.open = brokenOperator || !operator.value ? "false" : "true";
+      });
+      operatorDropdown.addEventListener("click", (event) => {
+        const option = event.target.closest(".ant-select-item-option");
+        if (!option) {
+          return;
+        }
+        operator.value = option.textContent.trim();
+        if (!misleadingOperatorInput) {
+          operatorSelection.textContent = operator.value;
+          operatorSelection.style.display = hiddenOperatorSelected ? "none" : "inline";
+          operatorPlaceholder.style.display = hiddenOperatorSelected ? "block" : "none";
+        }
+        document.getElementById("selected-operator").textContent = operator.value;
+        operatorDropdown.dataset.open = "false";
+      });
+      supplier.addEventListener("input", () => {
+        supplierPlaceholder.style.display = supplier.value ? "none" : "block";
+        supplierDropdown.dataset.open = supplier.value ? "true" : "false";
+        if (supplier.value) {
+          supplier.setAttribute("aria-activedescendant", "supplierSelect_list_0");
+        } else {
+          supplier.removeAttribute("aria-activedescendant");
+        }
+      });
+      supplierDropdown.addEventListener("click", (event) => {
+        const option = event.target.closest(".ant-select-item-option");
+        if (!option) {
+          return;
+        }
+        const nextValue = option.getAttribute("label") || option.textContent.trim();
+        supplier.value = nextValue;
+        if (!supplierValueOnlySelected) {
+          supplierSelection.textContent = nextValue;
+          supplierSelection.style.display = "inline";
+        }
+        supplierPlaceholder.style.display = "none";
+        supplier.setAttribute("aria-expanded", "false");
+        document.getElementById("selected-supplier").textContent = "已选择项目成员";
+        supplierDropdown.dataset.open = "false";
+      });
+      if (params.get("staleOwnerDropdown") === "1") {
+        dropdown.dataset.open = "true";
+      }
+      category.addEventListener("click", () => {
+        categoryDropdown.dataset.open = "true";
+      });
+      categoryDropdown.addEventListener("mouseover", (event) => {
+        if (!hoverOnlyCascader) {
+          return;
+        }
+        const item = event.target.closest(".ant-cascader-menu-item");
+        if (!item) {
+          return;
+        }
+        const level = Number(item.dataset.level);
+        item
+          .closest(".ant-cascader-menu")
+          .querySelectorAll(".ant-cascader-menu-item")
+          .forEach((node) => node.classList.remove("ant-cascader-menu-item-active"));
+        item.classList.add("ant-cascader-menu-item-active");
+        if (level < 2) {
+          categoryDropdown.querySelector(`.ant-cascader-menu[data-level="${level + 1}"]`).dataset.open = "true";
+        }
+      });
+      categoryDropdown.addEventListener("click", (event) => {
+        const item = event.target.closest(".ant-cascader-menu-item");
+        if (!item) {
+          return;
+        }
+        const level = Number(item.dataset.level);
+        if (hoverOnlyCascader && level < 2) {
+          categoryDropdown.dataset.open = "false";
+          return;
+        }
+        item
+          .closest(".ant-cascader-menu")
+          .querySelectorAll(".ant-cascader-menu-item")
+          .forEach((node) => node.classList.remove("ant-cascader-menu-item-active"));
+        item.classList.add("ant-cascader-menu-item-active");
+        if (level < 2) {
+          categoryDropdown.querySelector(`.ant-cascader-menu[data-level="${level + 1}"]`).dataset.open = "true";
+          return;
+        }
+        const values = Array.from(categoryDropdown.querySelectorAll(".ant-cascader-menu-item-active"))
+          .map((node) => node.dataset.value);
+        category.value = values.join(" / ");
+        categoryPlaceholder.textContent = category.value;
+        categoryPlaceholder.style.color = "#222";
+        categoryDropdown.dataset.open = "false";
+      });
+    </script>
+  </body>
+</html>

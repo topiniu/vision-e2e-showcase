@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@panel/*": ["src/panel/*"]
+    }
+  },
+  "exclude": ["node_modules", "dist"]
+}

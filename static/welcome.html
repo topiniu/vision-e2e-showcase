@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>Zhuzhu Welcome</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background: radial-gradient(circle at top, #1f2933 0%, #111827 55%, #05070a 100%);
+        color: #f9fafb;
+        display: grid;
+        place-items: center;
+      }
+
+      main {
+        padding: 48px;
+        border-radius: 24px;
+        background: rgba(17, 25, 40, 0.8);
+        backdrop-filter: blur(12px);
+        box-shadow: 0 20px 50px rgba(14, 17, 27, 0.55);
+        max-width: 640px;
+        text-align: center;
+      }
+
+      h1 {
+        margin-bottom: 12px;
+        font-size: 2.2rem;
+        font-weight: 600;
+      }
+
+      p {
+        margin: 0 auto 16px;
+        line-height: 1.6;
+        color: #c7d2fe;
+      }
+
+      code {
+        background: rgba(79, 70, 229, 0.2);
+        padding: 2px 6px;
+        border-radius: 6px;
+        font-family: 'JetBrains Mono', 'Fira Code', Menlo, Monaco, Consolas, monospace;
+        font-size: 0.95rem;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Welcome to Zhuzhu</h1>
+      <p>
+        Use the control panel to the right to load any page you want to inspect. Try entering a URL like
+        <code>example.com</code> or <code>https://www.electronjs.org</code> to get started.
+      </p>
+      <p>
+        This view is sandboxed and runs independently from the control panel to keep the tested page isolated.
+      </p>
+    </main>
+  </body>
+</html>

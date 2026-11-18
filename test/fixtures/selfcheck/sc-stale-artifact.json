@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 2,
+  "id": "sc-stale-artifact",
+  "name": "自检 · 陈旧产物假绿",
+  "group": "_selfcheck",
+  "baseUrl": "__SELFCHECK_BASE__",
+  "description": "本地合成夹具验证 sc-stale-artifact；不依赖外部业务环境。",
+  "tags": [
+    "selfcheck",
+    "stale-artifact",
+    "environment"
+  ],
+  "settings": {
+    "evidence": true,
+    "evidenceProfile": "fast",
+    "freshness": {
+      "requireChangedSince": "__SELFCHECK_PREVIOUS_FINGERPRINT__"
+    }
+  },
+  "cases": [
+    {
+      "id": "sc-stale-artifact-guard",
+      "name": "声称代码已改后再跑一轮",
+      "priority": "P0",
+      "qaTrace": {
+        "facets": [
+          "ENV-FRESHNESS"
+        ],
+        "escape": "故意改坏两次都不红：跑的是陈旧 bundle"
+      },
+      "steps": [
+        {
+          "id": "assert-page",
+          "type": "assertDom",
+          "stepTitle": "assert 页面已加载（本步不应被执行）",
+          "target": {
+            "testId": "demo-category-list"
+          },
+          "property": "exists",
+          "expected": true,
+          "timeoutMs": 5000
+        }
+      ]
+    }
+  ]
+}

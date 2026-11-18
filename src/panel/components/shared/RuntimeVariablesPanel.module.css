@@ -1,0 +1,401 @@
+.panel {
+  min-width: 0;
+  border-color: color-mix(in srgb, var(--border-subtle) 82%, transparent);
+  background: color-mix(in srgb, var(--panel) 94%, var(--panel-muted));
+  box-shadow: none;
+}
+
+.floatingPanel,
+.floatingChip {
+  position: absolute;
+  top: 16px;
+  right: 18px;
+  z-index: 18;
+}
+
+.floatingPanel[data-dragged="true"],
+.floatingChip[data-dragged="true"] {
+  bottom: auto;
+}
+
+.floatingPanel {
+  width: min(340px, calc(100% - 36px));
+  max-height: min(520px, calc(100% - 32px));
+  overflow: hidden;
+  border-color: color-mix(in srgb, var(--border-strong) 64%, transparent);
+  background: color-mix(in srgb, var(--panel) 96%, var(--panel-muted));
+  box-shadow: 0 18px 48px rgba(41, 54, 24, 0.15);
+}
+
+.floatingChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 34px;
+  padding: 6px 8px 6px 10px;
+  border: 1px solid color-mix(in srgb, var(--border-strong) 58%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--panel) 96%, var(--panel-muted));
+  color: var(--foreground);
+  box-shadow: 0 12px 34px rgba(41, 54, 24, 0.13);
+  cursor: grab;
+  touch-action: none;
+}
+
+.floatingChip:active {
+  cursor: grabbing;
+}
+
+.floatingChip svg {
+  width: 14px;
+  height: 14px;
+}
+
+.floatingChip span {
+  font-size: 12px;
+  font-weight: 750;
+}
+
+.compact {
+  border-radius: 8px;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 14px 8px;
+}
+
+.header[data-draggable="true"] {
+  cursor: grab;
+  user-select: none;
+}
+
+.header[data-draggable="true"]:active {
+  cursor: grabbing;
+}
+
+.kicker {
+  color: var(--muted-foreground);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.title {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+  font-size: 14px;
+}
+
+.title svg {
+  width: 15px;
+  height: 15px;
+}
+
+.headerActions {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.minimizeButton {
+  width: 26px;
+  height: 26px;
+  color: var(--muted-foreground);
+}
+
+.minimizeButton svg {
+  width: 13px;
+  height: 13px;
+}
+
+.content {
+  display: grid;
+  gap: 10px;
+  padding: 0 12px 12px;
+}
+
+.meta {
+  color: var(--muted-foreground);
+  font-size: 11px;
+}
+
+.artifacts {
+  display: grid;
+  gap: 7px;
+}
+
+.sectionHeader {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--muted-foreground);
+  font-size: 11px;
+  font-weight: 750;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.sectionHeader svg {
+  width: 13px;
+  height: 13px;
+}
+
+.artifactRow {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 28px;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  padding: 8px 6px 8px 10px;
+  border: 1px solid color-mix(in srgb, var(--border-subtle) 72%, transparent);
+  border-radius: 8px;
+  background: color-mix(in srgb, #ffffff 88%, var(--panel-muted));
+}
+
+.artifactText {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+
+.artifactText strong {
+  min-width: 0;
+  overflow: hidden;
+  color: var(--foreground);
+  font-size: 12px;
+  font-weight: 750;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.artifactText span {
+  min-width: 0;
+  overflow: hidden;
+  color: var(--foreground-soft);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  font-size: 11px;
+  line-height: 1.45;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.copyButtonInline {
+  width: 26px;
+  height: 26px;
+  color: var(--muted-foreground);
+}
+
+.copyButtonInline svg {
+  width: 13px;
+  height: 13px;
+}
+
+.scrollArea {
+  max-height: 240px;
+  padding-right: 6px;
+}
+
+.floatingPanel .scrollArea {
+  max-height: min(330px, calc(100vh - 250px));
+}
+
+.rows {
+  display: grid;
+  gap: 8px;
+}
+
+.row {
+  position: relative;
+  display: grid;
+  gap: 5px;
+  min-width: 0;
+  padding: 9px 36px 9px 10px;
+  border: 1px solid color-mix(in srgb, var(--border-subtle) 72%, transparent);
+  border-radius: 8px;
+  background: color-mix(in srgb, #ffffff 88%, var(--panel-muted));
+  outline: none;
+}
+
+.row:focus-visible,
+.row:hover {
+  border-color: color-mix(in srgb, var(--accent) 44%, var(--border-subtle));
+  background: color-mix(in srgb, #ffffff 94%, var(--panel-muted));
+}
+
+.rowHeader {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.rowHeader strong {
+  min-width: 0;
+  overflow: hidden;
+  color: var(--foreground);
+  font-size: 12px;
+  font-weight: 750;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.badges {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 4px;
+}
+
+.value {
+  min-width: 0;
+  overflow: hidden;
+  color: var(--foreground-soft);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  font-size: 11px;
+  line-height: 1.45;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.copyButton {
+  position: absolute;
+  right: 5px;
+  bottom: 5px;
+  width: 26px;
+  height: 26px;
+  color: var(--muted-foreground);
+}
+
+.copyButton svg {
+  width: 13px;
+  height: 13px;
+}
+
+.historyPopover {
+  width: min(360px, calc(100vw - 32px));
+  padding: 10px;
+  border-color: color-mix(in srgb, var(--border-strong) 68%, transparent);
+  background: var(--panel);
+  box-shadow: 0 18px 48px rgba(41, 54, 24, 0.18);
+}
+
+.historyHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid color-mix(in srgb, var(--border-subtle) 72%, transparent);
+}
+
+.historyHeader strong {
+  min-width: 0;
+  overflow: hidden;
+  font-size: 12px;
+  font-weight: 800;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.historyRows {
+  display: grid;
+  gap: 8px;
+  max-height: 280px;
+  margin-top: 8px;
+  overflow: auto;
+  padding-right: 2px;
+}
+
+.historyRow {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+  padding: 7px 8px;
+  border: 1px solid color-mix(in srgb, var(--border-subtle) 70%, transparent);
+  border-radius: 7px;
+  background: color-mix(in srgb, #ffffff 88%, var(--panel-muted));
+}
+
+.historyMeta {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  color: var(--muted-foreground);
+  font-size: 10px;
+}
+
+.historyMeta span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.historyMeta small {
+  flex: 0 0 auto;
+  font-size: 10px;
+}
+
+.historyValue,
+.historyPrevious {
+  min-width: 0;
+  overflow: hidden;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.historyValue {
+  color: var(--foreground);
+  font-size: 11px;
+  font-weight: 650;
+}
+
+.historyPrevious {
+  color: var(--muted-foreground);
+  font-size: 10px;
+}
+
+.emptyState {
+  display: grid;
+  min-height: 72px;
+  place-items: center;
+  border: 1px dashed color-mix(in srgb, var(--border-subtle) 76%, transparent);
+  border-radius: 8px;
+  color: var(--muted-foreground);
+  font-size: 12px;
+  text-align: center;
+}
+
+@media (max-width: 760px) {
+  .floatingPanel,
+  .floatingChip {
+    top: auto;
+    right: 12px;
+    bottom: 74px;
+    left: 12px;
+    width: auto;
+  }
+
+  .floatingPanel[data-dragged="true"],
+  .floatingChip[data-dragged="true"] {
+    top: auto !important;
+    right: 12px !important;
+    bottom: 74px;
+  }
+
+  .floatingPanel {
+    max-height: min(420px, calc(100% - 96px));
+  }
+}

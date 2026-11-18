@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>Zhuzhu Runtime Runner</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon-32.png" />
+    <link rel="stylesheet" href="./panel.css" />
+  </head>
+  <body>
+    <header class="shell-header">
+      <div>
+        <h1>Zhuzhu Runtime Runner</h1>
+        <p class="shell-subtitle">
+          Zhuzhu desktop control surface for navigation, runtime-v2 execution, and
+          evidence-driven debugging.
+        </p>
+      </div>
+      <div class="runtime-chip">
+        <span class="runtime-chip__label">Execution</span>
+        <span class="runtime-chip__value">runtime-v2 only</span>
+      </div>
+    </header>
+
+    <main class="shell-main">
+      <section class="card browser-card">
+        <div class="card-header">
+          <div>
+            <p class="eyebrow">Browser Shell</p>
+            <h2>Navigation</h2>
+          </div>
+          <span class="status-pill" id="browser-status-pill">Idle</span>
+        </div>
+
+        <div class="browser-grid">
+          <div class="field">
+            <label>Title</label>
+            <div class="value" id="page-title">Loading...</div>
+          </div>
+          <div class="field">
+            <label>Current URL</label>
+            <div class="value value--mono" id="page-url">Loading...</div>
+          </div>
+          <div class="field">
+            <label>Requested URL</label>
+            <div class="value value--mono" id="requested-url">-</div>
+          </div>
+          <div class="field">
+            <label>Redirect Chain</label>
+            <div class="value value--mono" id="redirect-chain">-</div>
+          </div>
+          <div class="field">
+            <label>Browser Target</label>
+            <div class="value" id="browser-target">Current Playwright window</div>
+          </div>
+          <div class="field">
+            <label>Last Error</label>
+            <div class="value value--mono" id="browser-error">-</div>
+          </div>
+        </div>
+
+        <div class="progress">
+          <div class="progress__track">
+            <div class="progress__bar" id="load-progress"></div>
+          </div>
+          <span class="progress__text" id="load-status">Idle</span>
+        </div>
+
+        <form id="navigation-form" class="url-form" autocomplete="off">
+          <label class="sr-only" for="url-input">Navigate to URL</label>
+          <input
+            id="url-input"
+            class="url-input"
+            type="text"
+            spellcheck="false"
+            placeholder="https://example.com"
+          />
+          <button type="submit" class="button button--primary">Go</button>
+        </form>
+
+        <div class="button-row">
+          <button type="button" class="button" data-action="back">Back</button>
+          <button type="button" class="button" data-action="forward">Forward</button>
+          <button type="button" class="button" data-action="reload">Reload</button>
+          <button type="button" class="button" data-action="stop">Stop</button>
+        </div>
+
+        <p class="card-note" id="navigation-note">
+          Runtime runs use the current URL if no explicit `options.url` is provided.
+        </p>
+      </section>
+
+      <section class="card runtime-card">
+        <div class="card-header">
+          <div>
+            <p class="eyebrow">Runtime Runner</p>
+            <h2>Execute Payload</h2>
+          </div>
+          <span class="status-pill" id="runtime-status-pill">Idle</span>
+        </div>
+
+        <div class="runtime-controls">
+          <div class="field">
+            <label>Runtime Engine</label>
+            <div class="value">Integrated runtime-v2</div>
+          </div>
+          <p class="card-note" id="runtime-note">
+            Runtime v2 is integrated into the desktop app and reuses the current Playwright window.
+          </p>
+        </div>
+
+        <label class="field" for="payload-input">
+          <span>JSON Payload</span>
+          <textarea
+            id="payload-input"
+            class="payload-input"
+            rows="10"
+            placeholder='{"type":"click","target":{"text":"Login"},"needRes":true}'
+          ></textarea>
+        </label>
+
+        <div class="button-row">
+          <button type="button" class="button button--primary" id="run-payload">
+            Run Payload
+          </button>
+          <button type="button" class="button button--secondary" id="clear-payload">
+            Clear
+          </button>
+        </div>
+
+        <div class="template-grid">
+          <button type="button" class="template-button" data-template="click-login">
+            Click login tab
+          </button>
+          <button type="button" class="template-button" data-template="type-username">
+            Type username
+          </button>
+          <button type="button" class="template-button" data-template="inspect-banner">
+            Inspect banner
+          </button>
+        </div>
+      </section>
+
+      <section class="card preview-card">
+        <div class="card-header">
+          <div>
+            <p class="eyebrow">Payload Preview</p>
+            <h2>Normalized Intent</h2>
+          </div>
+          <span class="status-pill" id="preview-count-pill">0 actions</span>
+        </div>
+        <p class="card-note" id="preview-error" hidden></p>
+        <div class="preview-list" id="preview-list">
+          <p class="empty-state">Enter a payload to preview runtime actions.</p>
+        </div>
+      </section>
+
+      <section class="card result-card">
+        <div class="card-header">
+          <div>
+            <p class="eyebrow">Observability</p>
+            <h2>Latest Result</h2>
+          </div>
+          <span class="status-pill" id="result-pill">No run yet</span>
+        </div>
+
+        <div class="result-grid">
+          <div class="field">
+            <label>Summary</label>
+            <div class="value" id="result-summary">No execution yet.</div>
+          </div>
+          <div class="field">
+            <label>Report Path</label>
+            <div class="value value--mono" id="report-path">-</div>
+          </div>
+          <div class="field">
+            <label>Run Directory</label>
+            <div class="value value--mono" id="run-dir">-</div>
+          </div>
+          <div class="field">
+            <label>Step Evidence</label>
+            <div class="value value--mono" id="step-evidence">-</div>
+          </div>
+        </div>
+
+        <pre class="result-output" id="result-output">Awaiting runtime execution.</pre>
+      </section>
+    </main>
+
+    <script src="./panel.js"></script>
+  </body>
+</html>

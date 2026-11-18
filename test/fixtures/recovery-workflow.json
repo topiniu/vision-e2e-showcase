@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 2,
+  "id": "recovery-example",
+  "name": "Synthetic recovery fixture",
+  "baseUrl": "http://127.0.0.1:32148/",
+  "recovery": {
+    "login": {
+      "detect": {
+        "urlIncludes": "/login"
+      },
+      "steps": [
+        {
+          "id": "login",
+          "type": "fill",
+          "target": {
+            "testId": "demo-username"
+          },
+          "value": "{{credential.username}}"
+        }
+      ]
+    }
+  },
+  "fixtures": {
+    "fxHome": {
+      "setup": [
+        {
+          "id": "fxhome-nav",
+          "type": "openUrl",
+          "url": "http://127.0.0.1:32148/",
+          "expectation": {
+            "kind": "assertDom",
+            "target": {
+              "testId": "demo-search-create-task"
+            },
+            "property": "visible",
+            "expected": true
+          }
+        }
+      ]
+    }
+  },
+  "cases": [
+    {
+      "id": "c1",
+      "name": "synthetic",
+      "steps": []
+    }
+  ]
+}

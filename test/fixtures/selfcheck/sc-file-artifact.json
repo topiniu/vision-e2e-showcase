@@ -1,0 +1,109 @@
+{
+  "schemaVersion": 2,
+  "id": "sc-file-artifact",
+  "name": "自检 · 导出物内容与截断",
+  "group": "_selfcheck",
+  "baseUrl": "__SELFCHECK_BASE__/export",
+  "description": "本地合成夹具验证 sc-file-artifact；不依赖外部业务环境。",
+  "tags": [
+    "selfcheck",
+    "file-artifact",
+    "DEMO-1310",
+    "DEMO-1296"
+  ],
+  "settings": {
+    "evidence": true,
+    "evidenceProfile": "fast"
+  },
+  "cases": [
+    {
+      "id": "sc-file-xlsx-cell",
+      "name": "导出发布报告：发布说明=新文案",
+      "priority": "P0",
+      "qaTrace": {
+        "facets": [
+          "DEMO-1310-F3"
+        ],
+        "escape": "判 HUMAN_INHERENT，晨检人工核对"
+      },
+      "steps": [
+        {
+          "id": "export-xlsx",
+          "type": "click",
+          "stepTitle": "点击导出发布报告",
+          "target": {
+            "testId": "demo-techsheet-export-btn"
+          },
+          "timeoutMs": 8000
+        },
+        {
+          "id": "assert-workshop-text",
+          "type": "assertFile",
+          "stepTitle": "assert 导出 xlsx 发布说明=新文案",
+          "source": {
+            "from": "download",
+            "match": "*.xlsx",
+            "timeoutMs": 15000
+          },
+          "expectation": {
+            "kind": "xlsx",
+            "sheet": "发布报告",
+            "cell": "B98",
+            "text": {
+              "equals": "1.发布前检查配置\n2.确认版本号"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "sc-file-png-complete",
+      "name": "导出宽表看板：底部/右侧未被截断",
+      "priority": "P0",
+      "qaTrace": {
+        "facets": [
+          "DEMO-1296-F4"
+        ],
+        "escape": "判 HUMAN_INHERENT，靠人眼看图"
+      },
+      "steps": [
+        {
+          "id": "export-png",
+          "type": "click",
+          "stepTitle": "点击导出宽表看板",
+          "target": {
+            "testId": "demo-board-export-btn"
+          },
+          "timeoutMs": 8000
+        },
+        {
+          "id": "assert-not-truncated",
+          "type": "assertFile",
+          "stepTitle": "assert 导出 PNG 完整（底边留白、内容非空）",
+          "source": {
+            "from": "download",
+            "match": "*.png",
+            "timeoutMs": 15000
+          },
+          "expectation": {
+            "kind": "image",
+            "expectedMinHeightPx": 200,
+            "expectedMinWidthPx": 300,
+            "inkRatio": {
+              "atLeast": 0.05
+            },
+            "bottomEdgeInkRatio": {
+              "atMost": 0.01
+            },
+            "bottomMarginPx": {
+              "atLeast": 8
+            },
+            "rightEdgeInkRatio": {
+              "atMost": 0.01
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,90 @@
+{
+  "schemaVersion": 2,
+  "id": "sc-page-error",
+  "name": "自检 · 新建品类输入即崩",
+  "group": "_selfcheck",
+  "baseUrl": "__SELFCHECK_BASE__",
+  "description": "本地合成夹具验证 sc-page-error；不依赖外部业务环境。",
+  "tags": [
+    "selfcheck",
+    "page-error",
+    "DEMO-1239"
+  ],
+  "requirement": {
+    "title": "sc-page-error",
+    "module": "本地演示",
+    "description": "自检套件，用于验证 Z-A 全局页面报错门"
+  },
+  "settings": {
+    "evidence": true,
+    "evidenceProfile": "fast",
+    "pageErrorPolicy": "fail"
+  },
+  "cases": [
+    {
+      "id": "sc-page-error-input",
+      "name": "复制新建品类并输入名称",
+      "priority": "P0",
+      "qaTrace": {
+        "facets": [
+          "DEMO-1239-F1"
+        ],
+        "escape": "17/17 facet 全绿之后，缺陷仍由人手工发现"
+      },
+      "steps": [
+        {
+          "id": "copy",
+          "type": "click",
+          "stepTitle": "点击复制，进入新建品类",
+          "target": {
+            "testId": "demo-category-copy-btn"
+          },
+          "timeoutMs": 5000
+        },
+        {
+          "id": "type-name",
+          "type": "fill",
+          "stepTitle": "输入新品类名称",
+          "target": {
+            "testId": "demo-category-name-input"
+          },
+          "value": "示例文档QA-selfcheck",
+          "timeoutMs": 5000
+        },
+        {
+          "id": "assert-input-value",
+          "type": "assertDom",
+          "stepTitle": "assert 输入框已带上新名称",
+          "target": {
+            "testId": "demo-category-name-input"
+          },
+          "property": "value",
+          "operator": "equals",
+          "expected": "示例文档QA-selfcheck",
+          "timeoutMs": 5000
+        },
+        {
+          "id": "save",
+          "type": "click",
+          "stepTitle": "点击保存",
+          "target": {
+            "testId": "demo-category-save-btn"
+          },
+          "timeoutMs": 5000
+        },
+        {
+          "id": "assert-list",
+          "type": "assertDom",
+          "stepTitle": "assert 品类列表含新品类",
+          "target": {
+            "testId": "demo-category-list"
+          },
+          "property": "text",
+          "operator": "contains",
+          "expected": "示例文档QA-selfcheck",
+          "timeoutMs": 5000
+        }
+      ]
+    }
+  ]
+}

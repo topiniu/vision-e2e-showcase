@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 2,
+  "id": "demo-passing",
+  "name": "保存并校验",
+  "group": "Demo",
+  "baseUrl": "http://127.0.0.1:32148/",
+  "description": "本地合成示例，无需账号。预期通过。",
+  "settings": {
+    "evidence": true,
+    "evidenceProfile": "fast",
+    "stepOcr": "off"
+  },
+  "cases": [
+    {
+      "id": "save-document",
+      "name": "保存文档",
+      "steps": [
+        {
+          "id": "fill-name",
+          "type": "fill",
+          "target": {
+            "testId": "demo-category-name-input"
+          },
+          "value": "Release notes",
+          "timeoutMs": 3000
+        },
+        {
+          "id": "save",
+          "type": "click",
+          "target": {
+            "testId": "demo-category-save-btn"
+          },
+          "timeoutMs": 3000
+        },
+        {
+          "id": "verify-saved-value",
+          "type": "assertDom",
+          "target": {
+            "testId": "demo-category-list"
+          },
+          "property": "text",
+          "operator": "contains",
+          "expected": "Release notes",
+          "timeoutMs": 500
+        }
+      ]
+    }
+  ]
+}

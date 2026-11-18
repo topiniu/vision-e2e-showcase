@@ -1,0 +1,397 @@
+.detail {
+  display: grid;
+  gap: 12px;
+}
+
+.detail[data-compact="true"] {
+  gap: 10px;
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px;
+  border: 1px solid var(--border-subtle);
+  background: var(--surface);
+}
+
+.header > div {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+}
+
+.header span,
+.section h4,
+.detailRow span,
+.pathButton {
+  color: var(--muted-foreground);
+  font-size: 12px;
+}
+
+.header strong {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  color: var(--foreground);
+  font-size: 14px;
+}
+
+.notice {
+  border-radius: 6px;
+}
+
+.spin {
+  animation: detail-spin 900ms linear infinite;
+}
+
+.section {
+  display: grid;
+  gap: 8px;
+  padding: 12px;
+  border: 1px solid var(--border-subtle);
+  background: color-mix(in srgb, var(--surface) 84%, transparent);
+}
+
+.section h4 {
+  margin: 0;
+  color: var(--foreground);
+  font-weight: 650;
+}
+
+.sectionTitleWithIcon {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.sectionTitleWithIcon svg {
+  width: 14px;
+  height: 14px;
+  color: var(--muted-foreground);
+}
+
+.rows {
+  display: grid;
+  gap: 8px;
+}
+
+.detailRow {
+  display: grid;
+  grid-template-columns: minmax(92px, 0.28fr) minmax(0, 1fr) auto;
+  align-items: start;
+  gap: 8px;
+  min-width: 0;
+}
+
+.detailRow strong {
+  min-width: 0;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  color: var(--foreground);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.45;
+}
+
+.detailRow[data-danger="true"] strong {
+  color: var(--danger);
+}
+
+.inlineJsonCell {
+  min-width: 0;
+}
+
+.inlineJsonCell .jsonReader {
+  background: var(--background);
+}
+
+.codeValue,
+.rawBlock pre,
+.rawInline pre,
+.jsonLine,
+.jsonBranch summary,
+.failureItem code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+}
+
+.rawBlock {
+  padding: 10px 12px;
+  border: 1px solid var(--border-subtle);
+  background: var(--surface);
+}
+
+.rawBlock summary {
+  cursor: pointer;
+  color: var(--foreground);
+  font-size: 12px;
+  font-weight: 650;
+}
+
+.rawBlock pre {
+  max-height: 320px;
+  margin: 10px 0 0;
+  overflow: auto;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  color: var(--muted-foreground);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.pathButton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  padding: 8px 10px;
+  border: 1px solid var(--border-subtle);
+  background: transparent;
+  text-align: left;
+}
+
+.pathButton svg {
+  flex: 0 0 auto;
+  width: 14px;
+  height: 14px;
+}
+
+.pathButton span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.exchangeGrid {
+  display: grid;
+  gap: 10px;
+}
+
+.exchangePanel {
+  display: grid;
+  gap: 9px;
+  min-width: 0;
+  padding: 10px;
+  border: 1px solid var(--border-subtle);
+  background: var(--background);
+}
+
+.exchangeHeader,
+.failurePanelHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  color: var(--foreground);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.failurePanelHeader {
+  justify-content: flex-start;
+  color: var(--danger);
+}
+
+.failurePanelHeader svg {
+  width: 14px;
+  height: 14px;
+}
+
+.apiSummary,
+.failurePanel {
+  display: grid;
+  gap: 8px;
+}
+
+.apiSummaryRow {
+  display: grid;
+  grid-template-columns: minmax(72px, 0.22fr) minmax(0, 1fr) auto;
+  align-items: start;
+  gap: 8px;
+  min-width: 0;
+}
+
+.apiSummaryRow span,
+.failureItem span,
+.jsonReader summary small,
+.rawInline summary {
+  color: var(--muted-foreground);
+  font-size: 12px;
+}
+
+.apiSummaryRow strong {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  color: var(--foreground);
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.failurePanel {
+  padding: 10px;
+  border: 1px solid color-mix(in srgb, var(--danger) 30%, var(--border-subtle));
+  background: color-mix(in srgb, var(--danger) 6%, var(--background));
+}
+
+.failureItem {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 7px;
+  min-width: 0;
+  padding-top: 8px;
+  border-top: 1px solid color-mix(in srgb, var(--danger) 20%, var(--border-subtle));
+}
+
+.failureItem code {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  color: var(--danger);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.failureItem div {
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr);
+  gap: 8px;
+  min-width: 0;
+}
+
+.failureItem strong {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  color: var(--foreground);
+  font-size: 12px;
+}
+
+.jsonReader {
+  border: 1px solid var(--border-subtle);
+  background: color-mix(in srgb, var(--surface) 76%, transparent);
+}
+
+.jsonReader > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 8px 10px;
+  cursor: pointer;
+  color: var(--foreground);
+  font-size: 12px;
+  font-weight: 650;
+}
+
+.jsonReader > summary span {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  min-width: 0;
+}
+
+.jsonReader > summary svg {
+  width: 14px;
+  height: 14px;
+  color: var(--muted-foreground);
+}
+
+.jsonTree {
+  max-height: 360px;
+  overflow: auto;
+  padding: 8px 10px 10px;
+  border-top: 1px solid var(--border-subtle);
+  background: var(--background);
+}
+
+.jsonBranch {
+  min-width: 0;
+}
+
+.jsonBranch summary {
+  display: flex;
+  gap: 8px;
+  min-width: 0;
+  padding: 3px 0 3px calc(var(--depth) * 14px);
+  cursor: pointer;
+  color: var(--muted-foreground);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.jsonLine {
+  display: flex;
+  gap: 8px;
+  min-width: 0;
+  padding: 3px 0 3px calc(var(--depth) * 14px);
+  color: var(--foreground);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.jsonKey {
+  flex: 0 0 auto;
+  max-width: 44%;
+  overflow-wrap: anywhere;
+  color: color-mix(in srgb, var(--foreground) 74%, var(--muted-foreground));
+  font-weight: 650;
+}
+
+.jsonKey::after {
+  content: ":";
+  color: var(--muted-foreground);
+}
+
+.jsonString,
+.jsonNumber,
+.jsonBoolean,
+.jsonNull,
+.jsonEmpty {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.jsonString {
+  color: var(--foreground);
+}
+
+.jsonNumber {
+  color: color-mix(in srgb, var(--primary) 82%, var(--foreground));
+}
+
+.jsonBoolean {
+  color: color-mix(in srgb, var(--success) 75%, var(--foreground));
+}
+
+.jsonNull,
+.jsonEmpty {
+  color: var(--muted-foreground);
+}
+
+.rawInline {
+  border-top: 1px solid var(--border-subtle);
+}
+
+.rawInline summary {
+  padding: 7px 10px;
+  cursor: pointer;
+  font-weight: 650;
+}
+
+.rawInline pre {
+  max-height: 260px;
+  margin: 0;
+  overflow: auto;
+  padding: 0 10px 10px;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  color: var(--muted-foreground);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+@keyframes detail-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

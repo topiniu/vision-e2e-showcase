@@ -1,0 +1,75 @@
+appId: com.topiniu.vision-e2e-showcase
+productName: Vision E2E Showcase
+copyright: Copyright © 2026 Zhuzhu
+afterPack: scripts/after-pack.cjs
+
+directories:
+  output: release
+  buildResources: .release-assets
+
+files:
+  - package.json
+  - dist/panel/**/*
+  - src/main/**/*
+  - src/preload/**/*
+  - src/shared/**/*
+  # The main process reaches these draft converters through src/shared/test-file*.js.
+  # The panel bundle does not make the CommonJS runtime module available to app.asar.
+  - src/panel/lib/payload-draft.js
+  - src/panel/lib/payload-draft.mjs
+  - runtime/**/*
+  - docs/**/*
+  - assets/**/*
+  - static/**/*
+  - README.md
+  - node_modules/**/*
+  - "!node_modules/playwright-core/.local-browsers/**/*"
+  - "!**/*.map"
+
+extraResources:
+  - from: node_modules/playwright-core/.local-browsers
+    to: playwright-browsers
+    filter:
+      - "**/*"
+  - from: test-workflows
+    to: default-workspace/test-workflows
+    filter:
+      - "**/*"
+  - from: test-assets
+    to: default-workspace/test-assets
+    filter:
+      - "**/*"
+  - from: assets
+    to: assets
+    filter:
+      - "**/*"
+  - from: README.md
+    to: README.md
+
+asar: true
+npmRebuild: false
+
+mac:
+  category: public.app-category.developer-tools
+  icon: .release-assets/app-icon.icns
+  hardenedRuntime: true
+  target:
+    - dmg
+    - zip
+  artifactName: "${productName}-${version}-mac-${arch}.${ext}"
+
+dmg:
+  sign: false
+
+win:
+  icon: assets/app-icon.ico
+  target:
+    - nsis
+  artifactName: "${productName}-${version}-win-${arch}.${ext}"
+
+nsis:
+  oneClick: false
+  allowToChangeInstallationDirectory: true
+  createDesktopShortcut: true
+  createStartMenuShortcut: true
+  shortcutName: Zhuzhu

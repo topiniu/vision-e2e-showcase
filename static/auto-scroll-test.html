@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Auto Scroll Harness</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #111922;
+      color: #f0f6ff;
+    }
+
+    body {
+      margin: 0;
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      min-height: 100vh;
+      background: linear-gradient(145deg, #111922 0%, #0c1321 45%, #04070c 100%);
+    }
+
+    header {
+      grid-column: 1 / span 2;
+      padding: 24px 32px 16px;
+      font-size: 24px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    aside {
+      padding: 24px 28px;
+      border-right: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    aside p {
+      line-height: 1.4;
+      margin: 0 0 16px;
+      font-size: 14px;
+      color: rgba(240, 246, 255, 0.8);
+    }
+
+    aside code {
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+      font-size: 13px;
+      color: #8be9fd;
+    }
+
+    main {
+      padding: 24px 32px 48px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .panel {
+      flex: 1;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+    }
+
+    .scroll-host {
+      position: relative;
+      border-radius: 18px;
+      padding: 16px 20px;
+      background: linear-gradient(160deg, rgba(28, 44, 64, 0.9), rgba(14, 20, 31, 0.94));
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 18px 35px rgba(0, 0, 0, 0.4);
+      overflow: hidden;
+    }
+
+    .scroll-host>h2 {
+      margin: 0;
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.65);
+    }
+
+    .scroll-container {
+      margin-top: 14px;
+      border-radius: 14px;
+      padding: 12px 18px;
+      height: 360px;
+      overflow-y: auto;
+      background: rgba(6, 11, 18, 0.88);
+      border: 1px solid rgba(139, 233, 253, 0.08);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+      scrollbar-width: thin;
+    }
+
+    .scroll-container::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .scroll-container::-webkit-scrollbar-thumb {
+      background: linear-gradient(180deg, rgba(139, 233, 253, 0.4), rgba(68, 162, 255, 0.5));
+      border-radius: 999px;
+    }
+
+    .item-grid {
+      display: grid;
+      gap: 12px;
+    }
+
+    .card {
+      border-radius: 12px;
+      padding: 14px 16px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(6px);
+      transition: transform 120ms ease, border 150ms ease;
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(139, 233, 253, 0.3);
+    }
+
+    .card strong {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 15px;
+      letter-spacing: 0.01em;
+    }
+
+    .card span {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .target {
+      margin-top: 28px;
+      padding: 18px 16px;
+      border-radius: 12px;
+      border: 1px dashed rgba(113, 228, 164, 0.4);
+      background: rgba(113, 228, 164, 0.08);
+      text-align: center;
+      font-size: 17px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      color: #71e4a4;
+    }
+
+    footer {
+      grid-column: 1 / span 2;
+      padding: 16px 32px 28px;
+      font-size: 12px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.35);
+    }
+  </style>
+</head>
+
+<body>
+  <header>Automation Scroll Sandbox</header>
+  <aside>
+    <p>
+      This page deliberately hides <strong>项目成员管理</strong> inside a nested scroll container.
+      Run an interpreter action with <code>"enableScroll": true</code> to confirm the harness scrolls
+      the list until the text becomes reachable.
+    </p>
+    <p>
+      Each scrollable panel emits console logs when wheel events occur so you can validate that the
+      automation loop is targeting the correct region.
+    </p>
+  </aside>
+  <main>
+    <div class="panel">
+      <section class="scroll-host">
+        <h2>主表单区域</h2>
+        <div class="scroll-container"
+             id="primary-list">
+          <div class="item-grid">
+            <div class="card"><strong>采购仪表盘</strong><span>实时监控采购订单状态</span></div>
+            <div class="card"><strong>订单中心</strong><span>集中处理所有出入库单据</span></div>
+            <div class="card"><strong>库存总览</strong><span>分析安全库存与缺货告警</span></div>
+            <div class="card"><strong>销售汇总</strong><span>汇总各渠道销量及毛利</span></div>
+            <div class="card"><strong>客户管理</strong><span>维护客户档案与交易记录</span></div>
+            <div class="card"><strong>对账中心</strong><span>一键生成多维度对账报表</span></div>
+            <div class="card"><strong>费用报销</strong><span>多级审批流+影像归档</span></div>
+            <div class="card"><strong>质检管理</strong><span>批次抽检与质量追溯</span></div>
+            <div class="card"><strong>仓库调度</strong><span>智能分配货位与任务</span></div>
+            <div class="card"><strong>生产排期</strong><span>自动排产、产能预估</span></div>
+            <div class="card"><strong>物流跟踪</strong><span>联动第三方物流实时更新</span></div>
+            <div class="card"><strong>发票中心</strong><span>电子发票自动归集管理</span></div>
+            <div class="card"><strong>资金计划</strong><span>现金流预测与提醒</span></div>
+            <div class="card"><strong>风险预警</strong><span>异常波动自动触发通知</span></div>
+            <div class="card"><strong>权限管理</strong><span>精细化控制操作范围</span></div>
+            <div class="card"><strong>流程编排</strong><span>拖拽式配置业务流程</span></div>
+            <div class="card"><strong>数据湖</strong><span>沉淀全域数据资产</span></div>
+            <div class="card"><strong>分析透视</strong><span>多维钻取、可视化大屏</span></div>
+            <div class="card"><strong>系统监控</strong><span>集成 Prometheus 指标</span></div>
+            <div class="card target"
+                 data-automation-target="true">项目成员管理</div>
+          </div>
+        </div>
+      </section>
+      <section class="scroll-host">
+        <h2>辅助设置区域</h2>
+        <div class="scroll-container"
+             id="secondary-list">
+          <div class="item-grid">
+            <div class="card"><strong>消息通知</strong><span>企业微信 / 钉钉同步</span></div>
+            <div class="card"><strong>工作日历</strong><span>多端同步会议与排班</span></div>
+            <div class="card"><strong>打印模板</strong><span>所见即所得模板设计器</span></div>
+            <div class="card"><strong>审批引擎</strong><span>条件路由 + 多人会签</span></div>
+            <div class="card"><strong>自定义字段</strong><span>拖拽式字段建模</span></div>
+            <div class="card"><strong>文件中心</strong><span>版本控制与批注</span></div>
+            <div class="card"><strong>AI 助手</strong><span>语义检索 + 智能问答</span></div>
+            <div class="card"><strong>权限日志</strong><span>操作轨迹全量记录</span></div>
+            <div class="card"><strong>数据导入</strong><span>模板校验 + 错误定位</span></div>
+            <div class="card"><strong>系统备份</strong><span>冷备 + 热备一体方案</span></div>
+            <div class="card target2" onclick="alert('click me')"><strong>开放平台</strong><span>Webhook 与 OAuth2 集成</span></div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+  <footer>Automation Scroll Harness • zhuzhu</footer>
+  <script>
+
+    function findScrollContainer(el) {
+      if (!el || !(el instanceof Element)) return document.scrollingElement;
+
+      let parent = el.parentElement;
+      let lastScrollable = null;
+
+      while (parent) {
+        const style = getComputedStyle(parent);
+        const overflowY = style.overflowY;
+        const overflowX = style.overflowX;
+
+        const maybeScrollable =
+          /(auto|scroll|overlay)/.test(overflowY) ||
+          /(auto|scroll|overlay)/.test(overflowX);
+
+        if (maybeScrollable) {
+          const nodeRect = parent.getBoundingClientRect();
+          const elRect = el.getBoundingClientRect();
+
+          const clipped =
+            elRect.bottom > nodeRect.bottom ||
+            elRect.top < nodeRect.top ||
+            elRect.right > nodeRect.right ||
+            elRect.left < nodeRect.left;
+
+          if (clipped) return parent;
+          lastScrollable = parent;
+        }
+
+        parent = parent.parentElement;
+      }
+
+      return lastScrollable || document.scrollingElement;
+    }
+
+    document.body.addEventListener('click', e => {
+      const target = e.target.closest('.target, .target2');
+      if (!target) {
+        alert('你点击的是空白区域，没有绑定目标元素');
+        return;
+      }
+
+      const container = findScrollContainer(target);
+      console.log('Scroll container for', target, container);
+      alert(`Primary scroll container: ${container.className || container.nodeName
+        } ${container.id}`);
+    });
+    const logScroll = (id) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.addEventListener(
+        "scroll",
+        () => {
+          console.log("[auto-scroll-test] scroll", id, {
+            top: Math.round(el.scrollTop),
+            height: el.scrollHeight,
+          });
+        },
+        { passive: true }
+      );
+    };
+    logScroll("primary-list");
+    logScroll("secondary-list");
+    console.log("[auto-scroll-test] ready");
+  </script>
+</body>
+
+</html>

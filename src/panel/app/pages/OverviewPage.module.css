@@ -1,0 +1,179 @@
+.layout {
+  display: grid;
+  gap: 12px;
+}
+
+.hero,
+.activity {
+  padding: 14px;
+  border: 1px solid var(--border-subtle);
+  border-radius: 4px;
+  background: var(--panel);
+  box-shadow: none;
+}
+
+.heroHead,
+.sectionHeader,
+.timelineTop {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.kicker {
+  color: var(--muted-foreground);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.heroTitle,
+.sectionTitle {
+  margin: 4px 0 0;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+
+.stats,
+.actions {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.stat,
+.actionCard {
+  padding: 10px;
+  border: 1px solid var(--border-subtle);
+  border-radius: 4px;
+  background: var(--panel);
+}
+
+.statLabel {
+  color: var(--muted-foreground);
+  font-size: 12px;
+}
+
+.statValue {
+  margin-top: 4px;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+
+.statMeta {
+  margin-top: 4px;
+  color: var(--muted-foreground);
+  font-size: 12px;
+}
+
+.actionCard {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color var(--motion-base), border-color var(--motion-base);
+}
+
+.actionCard:hover {
+  background: var(--panel-muted);
+  border-color: var(--border-strong);
+}
+
+.actionTitleRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.actionIcon {
+  width: 16px;
+  height: 16px;
+}
+
+.actionTitle {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.actionDetail,
+.timelineDetail,
+.actionLink {
+  margin: 0;
+  color: var(--muted-foreground);
+  font-size: 12px;
+}
+
+.actionLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.timeline {
+  display: grid;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.timelineItem {
+  display: grid;
+  grid-template-columns: 10px minmax(0, 1fr);
+  gap: 12px;
+}
+
+.timelineDot {
+  width: 8px;
+  height: 8px;
+  margin-top: 7px;
+  border-radius: 999px;
+  background: var(--foreground);
+}
+
+.timelineDot[data-variant="success"] {
+  background: var(--success);
+}
+
+.timelineDot[data-variant="danger"],
+.timelineDot[data-variant="warning"] {
+  background: var(--danger);
+}
+
+.timelineContent {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.timelineLabel {
+  font-size: 13px;
+  font-weight: 500;
+}
+
+@media (max-width: 960px) {
+  .stats,
+  .actions {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 720px) {
+  .hero,
+  .activity {
+    padding: 16px;
+  }
+
+  .heroHead,
+  .sectionHeader,
+  .timelineTop {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

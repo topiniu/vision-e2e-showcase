@@ -1,0 +1,87 @@
+{
+  "schemaVersion": 2,
+  "id": "sc-weak-oracle",
+  "name": "自检 · 弱 oracle 假绿（闭合下拉 text-absent + Select 三连拼）",
+  "group": "_selfcheck",
+  "baseUrl": "__SELFCHECK_BASE__",
+  "description": "本地合成夹具验证 sc-weak-oracle；不依赖外部业务环境。",
+  "tags": [
+    "selfcheck",
+    "weak-oracle",
+    "precheck-only"
+  ],
+  "settings": {
+    "evidence": true,
+    "evidenceProfile": "fast"
+  },
+  "cases": [
+    {
+      "id": "sc-weak-oracle-cases",
+      "name": "两种真实弱 oracle 写法",
+      "priority": "P0",
+      "qaTrace": {
+        "facets": [
+          "QUALITY-WEAK-ORACLE"
+        ],
+        "escape": "断言看起来断了、其实断不着，用例永远绿"
+      },
+      "steps": [
+        {
+          "id": "weak-1-closed-select-absent",
+          "type": "assertDom",
+          "stepTitle": "assert 闭合下拉里已不含旧品类（弱 oracle，故意保留）",
+          "target": {
+            "locator": ".ant-select .ant-select-selection-item"
+          },
+          "expectation": {
+            "kind": "text-absent",
+            "texts": [
+              "旧品类"
+            ]
+          }
+        },
+        {
+          "id": "weak-2-concatenated-text",
+          "type": "assertDom",
+          "stepTitle": "assert 选中项文案（弱 oracle：容器取 text 会拼接，故意保留）",
+          "target": {
+            "locator": ".ant-select-selection-item"
+          },
+          "property": "text",
+          "operator": "equals",
+          "expected": "示例文档"
+        },
+        {
+          "id": "weak-3-existence-only-on-input",
+          "type": "assertDom",
+          "stepTitle": "assert 数量输入框存在（只断存在不断值，故意保留）",
+          "target": {
+            "locator": "input.ant-input"
+          },
+          "property": "exists",
+          "expected": true
+        },
+        {
+          "id": "weak-4-wrapper-testid-fill",
+          "type": "fill",
+          "stepTitle": "填写公差（testid 打在 InputNumber 外层包裹上，故意保留）",
+          "target": {
+            "testId": "demo-size-rule-tolerance-input-number"
+          },
+          "value": "3"
+        },
+        {
+          "id": "weak-5-virtualized-select",
+          "type": "comboSearchSelect",
+          "stepTitle": "选择品类（不先搜索、不开滚动，故意保留）",
+          "target": {
+            "testId": "demo-category-select"
+          },
+          "option": {
+            "text": "文档"
+          }
+        }
+      ]
+    }
+  ]
+}

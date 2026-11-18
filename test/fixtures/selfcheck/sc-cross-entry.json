@@ -1,0 +1,140 @@
+{
+  "schemaVersion": 2,
+  "id": "sc-cross-entry",
+  "name": "自检 · 字段顺序四入口三套序",
+  "group": "_selfcheck",
+  "baseUrl": "__SELFCHECK_BASE__",
+  "description": "本地合成夹具验证 sc-cross-entry；不依赖外部业务环境。",
+  "tags": [
+    "selfcheck",
+    "cross-entry",
+    "DEMO-1243"
+  ],
+  "settings": {
+    "evidence": true,
+    "evidenceProfile": "fast"
+  },
+  "cases": [
+    {
+      "id": "sc-cross-entry-part-order",
+      "name": "四个入口读同一份字段顺序",
+      "priority": "P0",
+      "qaTrace": {
+        "facets": [
+          "DEMO-1243-F23"
+        ],
+        "escape": "四个入口三套顺序，单点用例全绿"
+      },
+      "consistencyGroup": {
+        "id": "part-order",
+        "subject": "字段顺序",
+        "probes": [
+          {
+            "name": "规则维护弹窗",
+            "capture": "partOrder",
+            "steps": [
+              {
+                "id": "open-rule",
+                "type": "openUrl",
+                "stepTitle": "打开规则维护弹窗入口",
+                "url": "__SELFCHECK_BASE__parts/rule",
+                "timeoutMs": 8000
+              },
+              {
+                "id": "read-rule",
+                "type": "assertDom",
+                "stepTitle": "读取规则维护弹窗里的字段顺序",
+                "target": {
+                  "testId": "demo-size-rule-part-list"
+                },
+                "property": "text",
+                "operator": "exists",
+                "saveAs": "partOrder",
+                "timeoutMs": 8000
+              }
+            ]
+          },
+          {
+            "name": "编辑字段表",
+            "capture": "partOrder",
+            "steps": [
+              {
+                "id": "open-edit",
+                "type": "openUrl",
+                "stepTitle": "打开编辑字段表入口",
+                "url": "__SELFCHECK_BASE__parts/edit",
+                "timeoutMs": 8000
+              },
+              {
+                "id": "read-edit",
+                "type": "assertDom",
+                "stepTitle": "读取编辑字段表里的字段顺序",
+                "target": {
+                  "testId": "demo-size-rule-part-list"
+                },
+                "property": "text",
+                "operator": "exists",
+                "saveAs": "partOrder",
+                "timeoutMs": 8000
+              }
+            ]
+          },
+          {
+            "name": "查看字段表popover",
+            "capture": "partOrder",
+            "steps": [
+              {
+                "id": "open-view",
+                "type": "openUrl",
+                "stepTitle": "打开查看字段表入口",
+                "url": "__SELFCHECK_BASE__parts/view",
+                "timeoutMs": 8000
+              },
+              {
+                "id": "read-view",
+                "type": "assertDom",
+                "stepTitle": "读取查看字段表里的字段顺序",
+                "target": {
+                  "testId": "demo-size-rule-part-list"
+                },
+                "property": "text",
+                "operator": "exists",
+                "saveAs": "partOrder",
+                "timeoutMs": 8000
+              }
+            ]
+          },
+          {
+            "name": "导出文件",
+            "capture": "partOrder",
+            "steps": [
+              {
+                "id": "open-export",
+                "type": "openUrl",
+                "stepTitle": "打开导出预览入口",
+                "url": "__SELFCHECK_BASE__parts/export",
+                "timeoutMs": 8000
+              },
+              {
+                "id": "read-export",
+                "type": "assertDom",
+                "stepTitle": "读取导出内容里的字段顺序",
+                "target": {
+                  "testId": "demo-size-rule-part-list"
+                },
+                "property": "text",
+                "operator": "exists",
+                "saveAs": "partOrder",
+                "timeoutMs": 8000
+              }
+            ]
+          }
+        ],
+        "expectation": {
+          "allEqual": true
+        }
+      },
+      "steps": []
+    }
+  ]
+}
