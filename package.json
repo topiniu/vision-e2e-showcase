@@ -1,7 +1,7 @@
 {
   "name": "vision-e2e-showcase",
   "productName": "Vision E2E Showcase",
-  "version": "1.11.2",
+  "version": "1.11.3",
   "description": "Local-first E2E workbench with Electron, React, Playwright and MCP.",
   "main": "src/main/main.js",
   "scripts": {
@@ -25,10 +25,11 @@
     "demo": "node scripts/demo.cjs",
     "demo:serve": "node scripts/demo.cjs --serve",
     "check:privacy": "node scripts/check-public-snapshot.mjs",
-    "check": "npm run check:privacy && npm run check:docs && npm run check:security && npm test && npm run build:panel",
+    "check": "npm run check:privacy && npm run check:history && npm run check:docs && npm run check:security && npm test && npm run build:panel",
     "demo:board": "node scripts/demo-board.cjs",
     "check:docs": "node scripts/check-docs.mjs",
-    "check:security": "node scripts/check-dependency-security.mjs"
+    "check:security": "node scripts/check-dependency-security.mjs",
+    "check:history": "node scripts/check-public-snapshot.mjs --history"
   },
   "keywords": [],
   "author": "topiniu",

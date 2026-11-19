@@ -2,7 +2,7 @@
 
 **一个可观察、可取消、可留下执行证据的浏览器 E2E 工作台。**
 
-基于 v1.11 整理的求职展示版。保留 Electron + React 面板、Playwright 执行器、MCP 集成与报告链路；所有随仓库分发的场景使用合成数据。本版本与原应用使用不同的数据目录，默认服务仅监听本机。
+基于 v1.11 整理的求职展示版。保留 Electron + React 面板、Playwright 执行器、MCP 集成与报告链路；所有随仓库分发的场景使用合成数据。桌面应用使用独立的 userData 目录，默认服务仅监听本机。
 
 ## 先运行一次完整演示
 
@@ -82,13 +82,16 @@ flowchart LR
 
 ```bash
 npm run check:privacy  # 已跟踪及待提交文件中的敏感内容与产物门禁
+npm run check:history  # 完整可达 Git 历史、其他引用及提交元数据门禁
 npm run check:security # 全依赖审计、本地安全分支完整性及漏洞回归
 npm test              # Node test runner + 本地真实 Chromium 夹具
 npm run build:panel
 npm run demo
 ```
 
-CI 在 push / pull request 时执行脱敏扫描、完整测试、演示和面板构建。测试包括超时与挂起模拟、取消、进程隔离、证据校验、反例检出、文件导出、视口及运行看板等场景。当前实测数据见验证记录。
+CI 在 push / pull request 时执行工作树及完整历史脱敏扫描、完整测试、演示和面板构建。测试包括超时与挂起模拟、取消、进程隔离、证据校验、反例检出、文件导出、视口及运行看板等场景。当前实测数据见验证记录。
+
+组织专用的匹配名单由仓库所有者通过私有配置注入，不包含在公开源码中。通用门禁和发布审查的覆盖范围、历史改写后的克隆注意事项见[公开前审查说明](docs/public-release-review.md)。
 
 开发/打包依赖的安全修复与本地 picomatch 分支的审计覆盖、兼容边界见 [依赖安全说明](docs/dependency-security.md)。
 

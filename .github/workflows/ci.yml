@@ -12,15 +12,21 @@ jobs:
   verify:
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    env:
+      ZHUZHU_PRIVATE_REFERENCES: ${{ secrets.SHOWCASE_PRIVATE_REFERENCES }}
+      ZHUZHU_REQUIRE_PRIVATE_REFERENCES: ${{ github.event_name != 'pull_request' }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: 22
           cache: npm
       - run: npm ci
       - run: npx playwright install --with-deps chromium
       - run: npm run check:privacy
+      - run: npm run check:history
       - run: npm run check:docs
       - run: npm run check:security
       - run: npm test
