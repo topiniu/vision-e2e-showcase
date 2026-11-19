@@ -18,8 +18,8 @@ npm run demo
 
 | 场景 | 执行与判定 |
 | --- | --- |
-| `demo/passing.json` | 输入文档名、保存、校验页面中的值，预期通过 |
-| `demo/failing.json` | 同样执行保存，但声明一个故意错误的期望值，预期失败 |
+| [`demo/passing.json`](test-workflows/demo/passing.json) | 输入文档名、保存、校验页面中的值，预期通过 |
+| [`demo/failing.json`](test-workflows/demo/failing.json) | 同样执行保存，但声明一个故意错误的期望值，预期失败 |
 
 脚本只有在两种判定都正确、证据包校验通过、真实截图已生成时才返回成功。它不把失败场景伪装为绿灯。
 
@@ -108,4 +108,4 @@ CI 在 push / pull request 时执行工作树及完整历史脱敏扫描、完�
 
 环境配置参考 [.env.example](.env.example)；进程不会自动加载该文件，使用 shell 环境变量或自己的进程管理方式。不要在测试文件中写真实密码、Cookie 或 Token。
 
-[ISC License](LICENSE)。第三方依赖沿用各自许可证。默认 `private: true` 防止误发 npm；GitHub 可见性单独管理，本任务完成时保持私有。
+[ISC License](LICENSE)。第三方依赖沿用各自许可证。GitHub 仓库用于公开展示；`package.json` 中的 `private: true` 用于防止误发 npm。原私库和旧展示归档不随此仓库公开。
